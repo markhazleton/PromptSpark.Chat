@@ -1,0 +1,460 @@
+﻿@{
+    ViewData["Title"] = "System Documentation";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">System Documentation</h1>
+
+            <div class="mb-5">
+                <h2 class="text-primary">Overview</h2>
+                <p>
+                    The application is a web-based chat workflow system built with ASP.NET Core MVC, SignalR, and an internal Workflow engine. Its primary function is to guide users through a series of steps, questions, or data entries in a chat-like interface. The main components include:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Chat.cshtml</strong> – This Razor view hosts the front-end UI, allowing the user to enter their name, select a workflow, and see chat messages and adaptive cards.
+                    </li>
+                    <li>
+                        <strong>PromptSparkHub</strong> – A SignalR hub that handles real-time communication between clients and the server, delegating workflow progression logic to the <code>ConversationService</code>.
+                    </li>
+                    <li>
+                        <strong>ConversationService</strong> – Manages the conversation state and workflow progression for each user, using a thread-safe dictionary store (<code>ConcurrentDictionaryService&lt;Conversation&gt;</code>).
+                    </li>
+                    <li>
+                        <strong>ChatService</strong> – Handles AI or generative responses through a chat-completion library, streaming partial responses back to clients for an interactive feel.
+                    </li>
+                    <li>
+                        <strong>ConcurrentDictionaryService</strong> – Provides a simple in-memory store for conversation data.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="text-primary">User Story</h2>
+                <p>
+                    <strong>As a user</strong>, I want to land on a webpage where I can enter my name, select a workflow, and join a guided conversation in a chat format. The system should lead me through questions and provide options in adaptive cards, ensuring my state is saved between interactions or page refreshes. I should not have to start from scratch on a page refresh and the conversation flow should be intuitive.
+                </p>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="text-primary">Architectural Flow</h2>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item">
+                        <strong>User Enters Name:</strong> The user is prompted to input a name, after which a dropdown to pick a workflow appears.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Selecting a Workflow:</strong> A list of available workflows is fetched from the server and displayed. Once the user chooses a workflow, SignalR initializes and <code>SetUserName</code> is invoked on the hub to store their session data.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Conversation Initialization:</strong> The <code>ConversationService.Lookup</code> method retrieves or creates a new conversation, associating the user with the selected workflow’s start node.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Chat Interaction:</strong> Users submit responses (typed or by clicking options). The <code>PromptSparkHub.SendMessage</code> method forwards them to the <code>ConversationService</code>. Depending on whether the response matches a predefined workflow answer, the user either progresses in the workflow or triggers the AI agent (<code>ChatService</code>) for a dynamic response.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Adaptive Card Rendering:</strong> Adaptive Cards are sent back to the user through SignalR. The page renders these cards, enabling structured input and further responses.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Conversation Persistence:</strong> All conversation data is stored in memory using the thread-safe <code>ConcurrentDictionaryService&lt;Conversation&gt;</code>. Users can refresh the page and resume where they left off.
+                    </li>
+                </ol>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="text-primary">Key Components</h2>
+                <div class="accordion" id="componentsAccordion">
+
+                    <!-- Chat.cshtml -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingChat">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseChat" aria-expanded="false" aria-controls="collapseChat">
+                                <strong>Chat.cshtml</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseChat" class="accordion-collapse collapse" aria-labelledby="headingChat" data-bs-parent="#componentsAccordion">
+                            <div class="accordion-body">
+                                A Razor page containing:
+                                <ul>
+                                    <li>Text input for the user’s name</li>
+                                    <li>Workflow selection dropdown</li>
+                                    <li>A chat window that appends messages and adaptive cards</li>
+                                    <li>JavaScript code to manage SignalR connection and dynamic UI updates</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PromptSparkHub -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingHub">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHub" aria-expanded="false" aria-controls="collapseHub">
+                                <strong>PromptSparkHub</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseHub" class="accordion-collapse collapse" aria-labelledby="headingHub" data-bs-parent="#componentsAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Inherits from <code>Hub</code> and serves as the gateway for real-time communication:
+                                </p>
+                                <ul>
+                                    <li>
+                                        <code>SendMessage(string conversationId, string message)</code> – Processes user messages, orchestrating workflow progression.
+                                    </li>
+                                    <li>
+                                        <code>SetUserName(string conversationId, string userName, string workflowName)</code> – Initializes a user’s conversation with the specified workflow.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ConversationService -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingConversationService">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConversationService" aria-expanded="false" aria-controls="collapseConversationService">
+                                <strong>ConversationService</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseConversationService" class="accordion-collapse collapse" aria-labelledby="headingConversationService" data-bs-parent="#componentsAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Manages each user’s <code>Conversation</code> state via <code>ConcurrentDictionaryService&lt;Conversation&gt;</code>. Key methods:
+                                </p>
+                                <ul>
+                                    <li>
+                                        <code>Lookup</code> – Retrieves or creates a <code>Conversation</code> object for a given conversation ID.
+                                    </li>
+                                    <li>
+                                        <code>ProcessUserResponse</code> – Determines how to handle incoming user responses, either advancing in the workflow or invoking AI for an unscripted answer.
+                                    </li>
+                                    <li>
+                                        <code>GetAdaptiveCardForNode</code> – Constructs a JSON string representing an Adaptive Card for the current workflow node.
+                                    </li>
+                                    <li>
+                                        <code>ProgressWorkflow</code> – Moves the conversation from the current workflow node to the next node based on user input.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ChatService -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingChatService">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseChatService" aria-expanded="false" aria-controls="collapseChatService">
+                                <strong>ChatService</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseChatService" class="accordion-collapse collapse" aria-labelledby="headingChatService" data-bs-parent="#componentsAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Integrates an AI or chatbot library to provide dynamic responses:
+                                </p>
+                                <ul>
+                                    <li>
+                                        <code>GenerateBotResponse</code> – Generates a single consolidated response from the AI.
+                                    </li>
+                                    <li>
+                                        <code>EngageChatAgent</code> – Streams partial AI responses to the client in real time, providing a more conversational feel.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ConcurrentDictionaryService -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingConcurrentDictService">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConcurrentDictService" aria-expanded="false" aria-controls="collapseConcurrentDictService">
+                                <strong>ConcurrentDictionaryService&lt;T&gt;</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseConcurrentDictService" class="accordion-collapse collapse" aria-labelledby="headingConcurrentDictService" data-bs-parent="#componentsAccordion">
+                            <div class="accordion-body">
+                                A base class that safely stores and retrieves objects in a thread-safe manner.
+                                <p>
+                                    Methods include <code>GetOrAdd</code>, <code>Lookup</code>, <code>Save</code>, and others for retrieving and updating stored items without collisions in a multi-user environment.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Technologies Demonstrated -->
+            <div class="mb-5">
+                <h2 class="text-primary">Technologies Demonstrated</h2>
+                <div class="accordion" id="technologiesAccordion">
+
+                    <!-- ASP.NET Core MVC -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingAspNetCoreMvc">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseAspNetCoreMvc"
+                                    aria-expanded="false"
+                                    aria-controls="collapseAspNetCoreMvc">
+                                <strong>ASP.NET Core MVC</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseAspNetCoreMvc"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="headingAspNetCoreMvc"
+                             data-bs-parent="#technologiesAccordion">
+                            <div class="accordion-body">
+                                The primary framework for building the web application structure and rendering Razor views like
+                                <code>Chat.cshtml</code> and <code>Index.cshtml</code>. It provides the foundational model-view-controller pattern
+                                and routing for handling HTTP endpoints.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- C# & .NET -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingCSharpDotNet">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseCSharpDotNet"
+                                    aria-expanded="false"
+                                    aria-controls="collapseCSharpDotNet">
+                                <strong>C# &amp; .NET</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseCSharpDotNet"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="headingCSharpDotNet"
+                             data-bs-parent="#technologiesAccordion">
+                            <div class="accordion-body">
+                                The back-end language and runtime powering server-side logic in classes like <code>ConversationService</code>,
+                                <code>ChatService</code>, and <code>PromptSparkHub</code>. It leverages C#'s <code>async/await</code> to streamline
+                                concurrency in a modern, scalable manner.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SignalR -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSignalR">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSignalR"
+                                    aria-expanded="false"
+                                    aria-controls="collapseSignalR">
+                                <strong>SignalR</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseSignalR"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="headingSignalR"
+                             data-bs-parent="#technologiesAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    An ASP.NET Core library for real-time communication. The <code>PromptSparkHub</code> class uses
+                                    SignalR to enable instantaneous updates between the server and multiple clients, making chat sessions
+                                    seamless and interactive without full page reloads.
+                                </p>
+                                <p>
+                                    SignalR is a library from Microsoft that makes it easy to build real-time, interactive applications with ASP.NET Core.
+                                    It allows you to push updates to clients instantly and handle client-server communication in a more responsive way,
+                                    without resorting to polling or manual refreshes. For example, a messaging app or a live dashboard can quickly notify
+                                    users when new data becomes available, rather than relying on periodic checks. SignalR abstracts away many of the
+                                    complexities of WebSocket connections, letting you focus on crafting features instead of worrying about low-level networking details.
+                                </p>
+                                <p>
+                                    One of the biggest benefits of SignalR is its automatic fallback mechanism. If a browser or network environment doesn’t support WebSockets,
+                                    SignalR gracefully switches to other protocols like Server-Sent Events or Long Polling. This ensures compatibility across different devices
+                                    and network conditions, all while giving you a single, cohesive API to work with. Because it’s built on top of ASP.NET Core,
+                                    SignalR can tap into the framework’s features for middleware, dependency injection, and authentication, so you can maintain consistent architecture across your app.
+                                </p>
+                                <p>
+                                    In addition, SignalR integrates seamlessly with client-side libraries such as the official JavaScript client, making it straightforward to subscribe to real-time events,
+                                    broadcast messages, or manage complex group connections. You can even scale out your SignalR solution using services like Azure SignalR Service,
+                                    or by configuring Redis or Azure Service Bus backplanes. This flexibility means that whether you’re building a small chat app or a globally distributed system,
+                                    SignalR can adapt to your needs.
+                                </p>
+                                <h2>Azure SignalR Service</h2>
+                                <p>
+                                    Azure SignalR Service is a fully managed service that offloads the complexity of hosting and scaling real-time applications. Instead of deploying and managing your own SignalR infrastructure, you can point your ASP.NET Core or .NET application to the Azure SignalR endpoint, and let the service handle connection management, scale-out, and performance optimizations. This is particularly helpful when your application experiences high traffic spikes or when you need to maintain persistent connections for large numbers of concurrent users without constantly modifying your hosting environment.
+                                </p>
+                                <p>
+                                    One of the biggest advantages of Azure SignalR Service is its ability to seamlessly integrate with other Azure services and features. It supports both serverless (Azure Functions) and web-app-based hosting models, so you can choose whatever approach suits your application’s architecture. When new events occur in your app—like data updates or user actions—Azure SignalR Service quickly routes messages to connected clients, all while giving you the tools for fine-grained control over which users, groups, or broadcast channels receive the updates.
+                                </p>
+                                <p>
+                                    From a developer’s standpoint, the setup process largely involves adding the necessary NuGet packages and configuration to your ASP.NET Core app. After referencing your connection string, you can continue coding against the familiar SignalR APIs, which means you don’t need to drastically change your existing code or patterns. Azure SignalR Service also features built-in options for secure endpoints, diagnostics, and scaling tiers to meet your capacity and performance needs, making it an ideal solution for everything from small-scale demos to enterprise-grade applications.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Adaptive Cards -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingAdaptiveCards">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseAdaptiveCards"
+                                    aria-expanded="false"
+                                    aria-controls="collapseAdaptiveCards">
+                                <strong>Adaptive Cards</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseAdaptiveCards"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="headingAdaptiveCards"
+                             data-bs-parent="#technologiesAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Adaptive Cards is an open-source framework developed by Microsoft that allows you to create visually appealing, platform-agnostic card snippets. These cards can contain text, images, input elements, and actions, making it easy to build interactive user experiences in conversational platforms or web applications. With a single JSON schema, Adaptive Cards can be rendered consistently across a variety of channels, such as Microsoft Teams, Outlook, or even custom websites, saving considerable development effort in supporting different platforms.
+                                </p>
+                                <p>
+                                    One of the key benefits of Adaptive Cards is the separation between content and design. Designers and developers can focus on defining the structure and data, while clients or hosts handle the rendering according to their own style guidelines or theme. This helps ensure a cohesive look and feel within each host application, while still delivering rich interactions that range from simple text prompts to comprehensive forms with validation.
+                                </p>
+                                <p>
+                                    Adaptive Cards also simplify user input capture by providing built-in support for text inputs, toggles, and drop-down lists. When users submit these cards, developers can process the input data directly, enabling scenarios like multi-step workflows, surveys, or feedback forms. The framework’s extensibility means you can add custom card elements and actions to meet more specific needs, all while taking advantage of the automatic layout and styling principles that Adaptive Cards offers.
+                                </p>
+                                <hr>
+                                <ul>
+                                    <li><a href="https://docs.microsoft.com/en-us/adaptive-cards/" target="_blank">Adaptive Cards Overview</a></li>
+                                    <li><a href="https://docs.microsoft.com/en-us/adaptive-cards/templating/" target="_blank">Adaptive Cards Templating</a></li>
+                                    <li><a href="https://github.com/microsoft/AdaptiveCards" target="_blank">Adaptive Cards on GitHub</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- In-Memory Storage with ConcurrentDictionary -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingConcurrentDictionary">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseConcurrentDictionary"
+                                    aria-expanded="false"
+                                    aria-controls="collapseConcurrentDictionary">
+                                <strong>In-Memory Storage</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseConcurrentDictionary"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="headingConcurrentDictionary"
+                             data-bs-parent="#technologiesAccordion">
+                            <div class="accordion-body">
+                                <code>ConcurrentDictionaryService&lt;T&gt;</code> secures conversation data from race conditions
+                                when multiple users are simultaneously active. In a large-scale or long-lived environment,
+                                consider a distributed cache or database.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Integration (via IChatCompletionService) -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingAIIntegration">
+                            <button class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseAIIntegration"
+                                    aria-expanded="false"
+                                    aria-controls="collapseAIIntegration">
+                                <strong>AI Integration (via IChatCompletionService)</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseAIIntegration"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="headingAIIntegration"
+                             data-bs-parent="#technologiesAccordion">
+                            <div class="accordion-body">
+                                Demonstrates how to incorporate external AI or ChatCompletion services.
+                                This architecture enables streaming partial responses from the AI, providing
+                                a real-time conversational experience for end users.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="mb-5">
+                <h2 class="text-primary">Deployment &amp; Scalability</h2>
+                <p>
+                    This application can be deployed to hosting providers such as Azure or AWS, or run on-prem. By default,
+                    the <code>ConcurrentDictionary</code> approach suffices for small to medium workloads. For higher concurrency
+                    and more robust session management, consider:
+                </p>
+                <ul>
+                    <li>Using a distributed cache (e.g., Redis) or database for storing conversations.</li>
+                    <li>Scaling out SignalR with a backplane like Redis or Azure SignalR Service.</li>
+                    <li>Ensuring serverless or containerized deployments if continuous scaling is needed.</li>
+                </ul>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="text-primary">Security &amp; Session Management</h2>
+                <ul>
+                    <li>
+                        <strong>HTTPS:</strong> Always serve the site over HTTPS to protect user data in transit.
+                    </li>
+                    <li>
+                        <strong>Session Tokens:</strong> Currently, conversation IDs are stored in localStorage on the client.
+                        If security is critical, tie conversations to authenticated sessions on the server.
+                    </li>
+                    <li>
+                        <strong>Input Sanitization:</strong> Validate and sanitize user inputs to prevent injection or malicious content in the chat.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="text-primary">Potential Future Enhancements</h2>
+                <ul>
+                    <li><strong>Authentication/Authorization</strong> – Limit access to specific workflows based on user roles.</li>
+                    <li><strong>Database Persistence</strong> – Replace or augment in-memory storage with a relational or NoSQL database for durability.</li>
+                    <li><strong>Workflow Editor</strong> – Add a front-end interface to manage workflow nodes and branching logic dynamically.</li>
+                    <li><strong>Analytics</strong> – Gather insights such as average completion time per workflow step, usage statistics, etc.</li>
+                    <li><strong>AI Summarization</strong> – Summarize long chat history for better context or quick recall.</li>
+                </ul>
+            </div>
+
+            <div class="mb-5">
+                <h2 class="text-primary">References</h2>
+                <ul>
+                    <li>
+                        <a href="https://learn.microsoft.com/en-us/aspnet/core/signalr/introduction?view=aspnetcore-7.0" target="_blank">
+                            ASP.NET Core SignalR Introduction
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://learn.microsoft.com/en-us/dotnet/csharp/" target="_blank">
+                            C# Programming Guide
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/signalr" target="_blank">
+                            ASP.NET Core Docs on GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://docs.microsoft.com/en-us/adaptive-cards/" target="_blank">
+                            Adaptive Cards Documentation
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert alert-info" role="alert">
+                <strong>Note:</strong> The workflow logic is customizable; workflows can be extended or replaced
+                based on specific business needs. This documentation covers the default approach and best practices
+                for building a guided conversation flow within an ASP.NET Core + SignalR environment.
+            </div>
+        </div>
+    </div>
+</div>
