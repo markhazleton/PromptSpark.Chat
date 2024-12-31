@@ -1,5 +1,5 @@
 # PromptSpark Chat Workflow
-
+An ASP.NET Core and SignalR-based solution for building dynamic, structured chat workflows that incorporate Adaptive Cards and optional AI integration. Includes real-time conversation features, simple concurrency management, and flexible workflow logic, making it easy to guide users through customized multi-step processes with minimal overhead.
 A conversational workflow application built with ASP.NET Core, SignalR, and Adaptive Cards. This repository demonstrates how to guide users through structured steps, present interactive UI elements, and respond to freeform conversation using AI or custom logic.
 
 ## Table of Contents
@@ -49,7 +49,7 @@ Once deployed, users can:
 5. Receive immediate responses and progress to subsequent steps.
 
 ## Contributing
-Contributions are welcome! Please open issues for feature requests or bug reports. For larger changes, submit a pull request with a clear description of what you’ve implemented.
+Contributions are welcome! Please open issues for feature requests or bug reports. For larger changes, submit a pull request with a clear description of what youâ€™ve implemented.
 
 ## License
 This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute the code as described in the license.
