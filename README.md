@@ -35,10 +35,139 @@ All conversation data is stored server-side for continuity, so users can refresh
 - **Optional AI** functionality via chat completion services
 
 ## Getting Started
-1. **Clone** the repository to your local machine.
-2. **Configure** the app settings for SignalR and any AI endpoints you wish to integrate.
-3. **Run** the application in Visual Studio or through the .NET CLI.
-4. **Access** the site locally to begin testing.
+
+Follow these steps to set up, build, and run the **PromptSpark.Chat** application. If you have any issues or questions, please create a GitHub Issue or submit a Pull Request.
+
+### Prerequisites
+
+- **.NET SDK 7.0+** (or the latest LTS version)  
+  You can check your version by running `dotnet --version` in your terminal.
+
+### Clone the Repository
+
+**1.** Navigate to the folder where you want to store the project.  
+```bash
+cd path/to/directory
+```
+
+**2.** Clone the repository:  
+
+```bash
+git clone
+```
+
+**3.** Change into the cloned directory:  
+
+```bash
+cd PromptSpark.Chat
+```
+
+### Project Structure Overview
+
+```
+PromptSpark.Chat/
+├─ PromptSpark.Chat.csproj
+├─ Controllers/
+├─ Models/
+├─ Services/
+├─ Views/
+│  ├─ Chat/
+│  │  └─ chat.cshtml
+│  ├─ Shared/
+│  └─ Home/
+├─ wwwroot/
+├─ appsettings.json
+├─ LICENSE
+└─ README.md
+```
+
+- **Controllers/** – Houses your ASP.NET Core MVC controllers.  
+- **Services/** – Contains core business logic and workflow/AI integration classes.  
+- **Views/** – Razor views for the UI (`chat.cshtml`).  
+- **wwwroot/** – Static content, such as CSS and JavaScript files.  
+- **appsettings.json** – Configuration details.  
+- **LICENSE** – MIT License file.  
+- **README.md** – Documentation.
+
+### Configure Workflows
+
+If you want to add a custom workflow, create a JSON file (e.g., `myWorkflow.json`), then make it known to the application’s workflow loading logic:
+
+[PLACEHOLDER FOR JSON EXAMPLE]
+
+```json
+{
+  "nodes": [
+    {
+      "answers": [
+        {
+          "nextNode": "chooseStrength",
+          "response": "Yes",
+          "system": "Coffee Assistant"
+        },
+        {
+          "nextNode": "end",
+          "response": "No",
+          "system": "Coffee Assistant"
+        }
+      ],
+      "id": "start",
+      "questionType": 0,
+      "question": "Welcome! Ready to brew the perfect cup of coffee? Shall we start?"
+    }
+  ]
+}
+
+```
+
+
+> **Note:** The `QuestionType` values or node structure may vary. Refer to your `Node` model for valid properties.
+
+### Running the Application
+
+1. **Using Visual Studio**  
+   - Open the solution in Visual Studio.  
+   - Press `F5` or use the “Start Debugging” option.  
+   - The application will launch in your browser.
+
+2. **Using the .NET CLI**  
+   - Restore and build the project, then run it.  
+   [PLACEHOLDER FOR CLI COMMAND BLOCK]
+
+   - Check the output for the local URL (e.g., `https://localhost:5001`).  
+   - Open your browser and navigate to that URL.
+
+### Verification & Usage
+
+1. **Open the Chat UI:**  
+   Enter your name and select a workflow from the dropdown.
+
+2. **Interact with Adaptive Cards:**  
+   You’ll see interactive elements (buttons, text inputs). Submit these and let the system guide you to the next step.
+
+3. **Refresh Persistence:**  
+   The conversation is stored server-side. Reloading the page should preserve your progress, provided you have the same conversation ID.
+
+### Example Interaction
+
+[PLACEHOLDER FOR STEP-BY-STEP EXAMPLE OR GIF]
+
+1. **Name Input** – Type a name.  
+2. **Workflow Selection** – Choose a workflow file (like `myWorkflow.json`).  
+3. **Chat Exchange** – Complete the prompts with button clicks or typed responses.
+
+### Troubleshooting
+
+- **Port Conflicts:** Update your `launchSettings.json` to use different ports if needed.  
+- **Missing Dependencies:** Ensure you have the correct .NET SDK installed and run `dotnet restore`.  
+- **AI Integration:** Update `IChatCompletionService` settings in `appsettings.json` for any required keys/endpoints.
+
+### Next Steps
+
+- **Deploy**: Package and host on Azure, AWS, or an on-prem server.  
+- **Scale**: Use Azure SignalR Service if your user load is high.  
+- **Test**: Integrate a testing framework and set up GitHub Actions for CI/CD.  
+- **Extend**: Add more complex workflows and branching logic as your application grows.
 
 ## Usage
 Once deployed, users can:
