@@ -91,29 +91,34 @@ PromptSpark.Chat/
 
 ### Configure Workflows
 
-If you want to add a custom workflow, create a JSON file (e.g., `myWorkflow.json`), then make it known to the application’s workflow loading logic:
+If you want to add a custom workflow, create a JSON file (e.g., `myWorkflow.json`), 
+then make it known to the application’s workflow loading logic:
 
-[PLACEHOLDER FOR JSON EXAMPLE]
 
 ```json
 {
-  "nodes": [
+  "StartNode": "node1",
+  "Nodes": [
     {
-      "answers": [
+      "Id": "node1",
+      "Question": "Hello, what's your favorite color?",
+      "QuestionType": 0,
+      "Answers": [
         {
-          "nextNode": "chooseStrength",
-          "response": "Yes",
-          "system": "Coffee Assistant"
+          "Response": "Blue",
+          "NextNode": "node2"
         },
         {
-          "nextNode": "end",
-          "response": "No",
-          "system": "Coffee Assistant"
+          "Response": "Red",
+          "NextNode": "node2"
         }
-      ],
-      "id": "start",
-      "questionType": 0,
-      "question": "Welcome! Ready to brew the perfect cup of coffee? Shall we start?"
+      ]
+    },
+    {
+      "Id": "node2",
+      "Question": "Great choice!",
+      "QuestionType": 2,
+      "Answers": []
     }
   ]
 }
@@ -149,8 +154,6 @@ If you want to add a custom workflow, create a JSON file (e.g., `myWorkflow.json
    The conversation is stored server-side. Reloading the page should preserve your progress, provided you have the same conversation ID.
 
 ### Example Interaction
-
-[PLACEHOLDER FOR STEP-BY-STEP EXAMPLE OR GIF]
 
 1. **Name Input** – Type a name.  
 2. **Workflow Selection** – Choose a workflow file (like `myWorkflow.json`).  
