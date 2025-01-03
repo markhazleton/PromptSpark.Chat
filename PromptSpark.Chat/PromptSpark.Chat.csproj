@@ -13,6 +13,14 @@
 		<ApplicationIcon>favicon.ico</ApplicationIcon>
 		<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
 	</PropertyGroup>
+	<Target Name="EnsureNodeModules" BeforeTargets="BeforeBuild">
+		<Message Importance="high" Text="Update npm packages..." />
+		<Exec Command="ncu -u" />
+		<Message Importance="high" Text="Restoring npm packages..." />
+		<Exec Command="npm install" />
+		<Message Importance="high" Text="Build Assets..." />
+		<Exec Command="npm run build" />
+	</Target>
 	<ItemGroup>
 		<Content Include="favicon.ico">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
