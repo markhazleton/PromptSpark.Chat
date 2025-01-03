@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using PromptSpark.Chat.Services;
+using PromptSpark.Chat.ConversationDomain;
 
 namespace PromptSpark.Chat.Controllers.Api;
 

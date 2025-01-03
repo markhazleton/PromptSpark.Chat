@@ -1,5 +1,4 @@
-
-namespace PromptSpark.Chat.Models;
+namespace PromptSpark.Chat.Application;
 /// <summary>
 /// 
 /// </summary>

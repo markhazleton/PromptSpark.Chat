@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace PromptSpark.Chat.Services;
+namespace PromptSpark.Chat.ConversationDomain;
 
 
 public class ConcurrentDictionaryService<T>

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PromptSpark.Chat.Services;
+using PromptSpark.Chat.WorkflowDomain;
 using System.Text.Json;
 
 namespace PromptSpark.Chat.Controllers;

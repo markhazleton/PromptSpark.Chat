@@ -1,8 +1,7 @@
-
 using System.Globalization;
 using System.Reflection;
 
-namespace PromptSpark.Chat.Models;
+namespace PromptSpark.Chat.Application.Diagnostics;
 
 /// <summary>
 /// ApplicationStatus

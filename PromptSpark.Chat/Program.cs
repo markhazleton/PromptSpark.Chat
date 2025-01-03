@@ -1,5 +1,6 @@
 using Microsoft.SemanticKernel;
-using PromptSpark.Chat.Services;
+using PromptSpark.Chat.ConversationDomain;
+using PromptSpark.Chat.WorkflowDomain;
 using Scalar.AspNetCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;

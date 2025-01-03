@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.SemanticKernel.ChatCompletion;
 using System.Text;
-namespace PromptSpark.Chat.Services;
+namespace PromptSpark.Chat.ConversationDomain;
 
 public interface IChatService
 {

@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PromptSpark.Chat.Services;
+using PromptSpark.Chat.WorkflowDomain;
 
 namespace PromptSpark.Chat.Controllers;
 
 public class WorkflowAdminController : Controller
 {
     private readonly IWorkflowService _workflowService;
-
     public WorkflowAdminController(IWorkflowService workflowService)
     {
         _workflowService = workflowService;

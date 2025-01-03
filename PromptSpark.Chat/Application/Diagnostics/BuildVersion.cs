@@ -1,7 +1,6 @@
-﻿
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace PromptSpark.Chat.Models;
+namespace PromptSpark.Chat.Application.Diagnostics;
 
 /// <summary>
 /// Build Version
