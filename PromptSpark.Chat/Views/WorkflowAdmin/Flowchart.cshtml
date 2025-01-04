@@ -10,10 +10,37 @@
         .mermaid svg .node rect, .mermaid svg .node polygon {
             max-width: 100px;
         }
+
+        /* Make the flowchart container scrollable */
+        #flowchart-container {
+            width: 100%; /* Adjust the width to your requirement */
+            height: 600px; /* Set a fixed height or use 100% for full viewport */
+            overflow: auto; /* Enable both horizontal and vertical scrollbars when needed */
+            border: 1px solid #ccc; /* Optional: Add border for better visibility */
+        }
     </style>
 }
 
+<hr/>
 <h2>Workflow Flowchart for "@Model"</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Zoom In Button -->
+    <button id="zoomInButton" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Zoom In
+    </button>
+
+    <!-- Zoom Out Button -->
+    <button id="zoomOutButton" class="btn btn-primary">
+        <i class="bi bi-dash-circle"></i> Zoom Out
+    </button>
+
+    <!-- Refresh Button -->
+    <button id="refreshButton" class="btn btn-secondary">
+        <i class="bi bi-arrow-clockwise"></i> Refresh Diagram
+    </button>
+</div>
+<hr />
+
 
 <!-- Container to hold the Mermaid flowchart -->
 <div id="flowchart-container">
@@ -68,8 +95,12 @@
 
 @section Scripts {
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
+            let zoomLevel = 1; // Initial zoom level
+            const zoomStep = 0.1; // Step size for zooming
+            const zoomMin = 0.5; // Minimum zoom level
+            const zoomMax = 2;   // Maximum zoom level
+
             // Function to convert workflow data to Mermaid syntax with prefixed IDs and top-to-bottom layout
             function convertToMermaidSyntax(workflowData) {
                 let mermaidSyntax = "graph TD\n";
@@ -137,16 +168,51 @@
                     answersList.appendChild(listItem);
                 });
 
-                document.getElementById("manualCloseButton").addEventListener("click", function()
-                {
+                document.getElementById("manualCloseButton").addEventListener("click", function() {
                     $('#nodeModal').modal('hide');
                 });
 
                 $('#nodeModal').modal('show');
             }
 
+            // Zoom In function
+            function zoomIn() {
+                if (zoomLevel < zoomMax) {
+                    zoomLevel += zoomStep;
+                    adjustZoom();
+                }
+            }
+
+            // Zoom Out function
+            function zoomOut() {
+                if (zoomLevel > zoomMin) {
+                    zoomLevel -= zoomStep;
+                    adjustZoom();
+                }
+            }
+
+            // Adjust the zoom level of the SVG diagram
+            function adjustZoom() {
+                const svgElement = document.querySelector("#flowchart-container svg");
+                if (svgElement) {
+                    svgElement.style.transform = `scale(${zoomLevel})`;
+                    svgElement.style.transformOrigin = "top left";
+                }
+            }
+
+            // Refresh the diagram (re-render it)
+            function refreshDiagram() {
+                renderFlowchart();
+            }
+
+            // Event Listeners for buttons
+            document.getElementById("zoomInButton").addEventListener("click", zoomIn);
+            document.getElementById("zoomOutButton").addEventListener("click", zoomOut);
+            document.getElementById("refreshButton").addEventListener("click", refreshDiagram);
+
+            // Initial render
             renderFlowchart();
         });
-
     </script>
 }
+
