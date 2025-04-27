@@ -1,15 +1,27 @@
 using Microsoft.SemanticKernel;
+using PromptSpark.Chat.Application.Diagnostics;
 using PromptSpark.Chat.ConversationDomain;
 using PromptSpark.Chat.WorkflowDomain;
 using Scalar.AspNetCore;
+using Serilog;
+using Serilog.Events;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure logging
-builder.Logging.AddConsole();
-builder.Logging.SetMinimumLevel(LogLevel.Debug);
+// Configure logging with more detailed options for debugging
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", 
+        rollingInterval: RollingInterval.Day,
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Register services
 builder.Services.AddSignalR();
@@ -46,9 +58,9 @@ builder.Services.AddHttpClient("workflow", client =>
                     uriBuilder.Port = uri.Port;
                 }
             }
-            catch (UriFormatException)
+            catch (UriFormatException ex)
             {
-                // Log or handle URI parse error if needed
+                Log.Error(ex, "Error parsing ASPNETCORE_URLS");
             }
         }
     }
@@ -62,10 +74,26 @@ builder.Services.AddHttpClient("workflow", client =>
 string apikey = builder.Configuration.GetValue<string>("OPENAI_API_KEY") ?? "not found";
 string modelId = builder.Configuration.GetValue<string>("MODEL_ID") ?? "gpt-4o";
 
-builder.Services.AddOpenAIChatCompletion(modelId, apikey);
+// Log OpenAI configuration before registration
+Log.Information("Configuring OpenAI with Model ID: {ModelId}", modelId);
+if (apikey == "not found")
+{
+    Log.Error("OpenAI API key not found in configuration");
+}
+
+// Add OpenAI chat completion with logging
+try
+{
+    builder.Services.AddOpenAIChatCompletion(modelId, apikey);
+    Log.Information("OpenAI chat completion service registered successfully");
+}
+catch (Exception ex)
+{
+    Log.Error(ex, "Error registering OpenAI chat completion service");
+}
 
 builder.Services.Configure<WorkflowOptions>(builder.Configuration.GetSection("Workflow"));
-builder.Services.AddSingleton<IWorkflowService, WorkflowService>();
+builder.Services.AddSingleton<WorkflowService, WorkflowService>();
 
 // Configure JsonSerializerOptions
 builder.Services.AddSingleton(new JsonSerializerOptions
@@ -75,13 +103,24 @@ builder.Services.AddSingleton(new JsonSerializerOptions
 });
 
 // Register ConcurrentDictionaryService for Conversation
-builder.Services.AddSingleton<IChatService, ChatService>();
+builder.Services.AddSingleton<ChatService, ChatService>();
 builder.Services.AddSingleton<ConversationService>();
 // Register PromptSparkHub with all dependencies injected
 builder.Services.AddSingleton<PromptSparkHub>();
 
 
 var app = builder.Build();
+
+// Log service registrations at startup for debugging
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+    
+    // Use the new ConfigurationDiagnostics utility
+    ConfigurationDiagnostics.LogOpenAIConfiguration(logger, app.Configuration);
+    ConfigurationDiagnostics.LogServiceRegistrations(logger, serviceProvider);
+}
 
 // Middleware setup
 app.UseDefaultFiles();

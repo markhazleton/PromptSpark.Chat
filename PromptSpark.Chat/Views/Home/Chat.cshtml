@@ -2,29 +2,39 @@
     ViewData["Title"] = "PromptSpark.Chat";
 }
 
-<div class="chat-container">
-    <div class="card shadow-sm">
-        <header class="card-header bg-primary text-white text-center">
-            <h2 class="mb-0">PromptSpark Chat</h2>
-        </header>
-        <div class="card-body">
-            <div id="userForm" class="mb-4">
-                <label for="userInput" class="form-label">Enter your name to join the chat:</label>
-                <input type="text" id="userInput" class="form-control" placeholder="Your name" aria-label="User name input" />
-                <button class="btn btn-primary mt-2" onclick="showWorkflowSelection()">Next</button>
-            </div>
-            <div id="workflowForm" class="mb-4" style="display: none;">
-                <label for="workflowSelect" class="form-label">Select a workflow:</label>
-                <select id="workflowSelect" class="form-select" aria-label="Workflow selection">
-                    <!-- Workflow options will be populated here by JavaScript -->
-                </select>
-                <button class="btn btn-primary mt-2" onclick="joinChat()">Join Chat</button>
-            </div>
-            <div id="chatWindow" style="display: none;">
-                <div id="connectionStatus" class="text-muted mb-2">Connecting...</div>
-                <ul id="messagesList" class="list-unstyled mb-3 p-3 border rounded bg-light overflow-auto" style="height: 70vh; max-height: 70vh;" aria-live="polite">
-                </ul>
-                <div id="optionsContainer" class="d-flex flex-wrap gap-2 mb-3" style="display: none;"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mt-2 mb-4">Chat</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm theme-card">
+                <div class="card-body">
+                    <div id="userForm" class="mb-4">
+                        <label for="userInput" class="form-label">Enter your name to join the chat:</label>
+                        <input type="text" id="userInput" class="form-control theme-element" placeholder="Your name" aria-label="User name input" />
+                        <button class="btn btn-primary mt-2" onclick="showWorkflowSelection()">Next</button>
+                    </div>
+                    <div id="workflowForm" class="mb-4" style="display: none;">
+                        <label for="workflowSelect" class="form-label">Select a workflow:</label>
+                        <select id="workflowSelect" class="form-select theme-element" aria-label="Workflow selection">
+                            <!-- Workflow options will be populated here by JavaScript -->
+                        </select>
+                        <button class="btn btn-primary mt-2" onclick="joinChat()">Join Chat</button>
+                    </div>
+                    <div id="chatWindow" style="display: none;">
+                        <div id="connectionStatus" class="text-muted mb-2">Connecting...</div>
+                        <ul id="messagesList" class="list-unstyled mb-3 p-3 border rounded theme-messages overflow-auto" style="height: 50vh; max-height: 50vh;" aria-live="polite">
+                        </ul>
+                        <div id="optionsContainer" class="d-flex flex-wrap gap-2 mb-3"></div>
+                        <div class="input-group mt-3">
+                            <input type="text" id="chatInput" class="form-control theme-element" placeholder="Type your message..." aria-label="Chat message input" />
+                            <button class="btn btn-primary" id="sendButton" disabled>Send</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -32,44 +42,99 @@
 
 @section Styles {
     <style>
-        /* Chat container styling */
-        .chat-container {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            width: 800px; /* Adjust width as needed */
-            max-width: 90vw; /* Ensure it doesn't exceed viewport width */
-            height: 90vh; /* Take up 90% of the viewport height */
-            z-index: 1000; /* Stay on top of other elements */
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: white;
+        /* Base styles with CSS variables for theming */
+        :root {
+            --chat-bg: var(--bs-body-bg);
+            --chat-color: var(--bs-body-color);
+            --chat-border: var(--bs-border-color);
+            --chat-user-bg: var(--bs-light);
+            --chat-user-color: var(--bs-dark);
+            --chat-bot-bg: var(--bs-primary);
+            --chat-bot-color: var(--bs-white);
+            --card-bg: var(--bs-body-bg);
+            --input-bg: var(--bs-body-bg);
+            --input-color: var(--bs-body-color);
+            --input-border: var(--bs-border-color);
         }
 
-            /* Adjust card body height to fit container */
-            .chat-container .card-body {
-                height: calc(100% - 60px); /* Subtract header height */
-                overflow-y: auto;
-            }
+        /* Dark theme overrides */
+        .theme-dark {
+            --chat-bg: var(--bs-dark);
+            --chat-color: var(--bs-light);
+            --chat-border: #444;
+            --chat-user-bg: #2c3034;
+            --chat-user-color: var(--bs-light);
+            --chat-bot-bg: #224f94;
+            --chat-bot-color: var(--bs-white);
+            --card-bg: #212529;
+            --input-bg: #2c3034;
+            --input-color: var(--bs-light);
+            --input-border: #444;
+        }
 
-        /* Overflow scrolling in messages list */
+        /* Card styling */
+        .theme-card {
+            background-color: var(--card-bg);
+            color: var(--chat-color);
+        }
+
+        /* Form elements styling */
+        .theme-element {
+            background-color: var(--input-bg);
+            color: var(--input-color);
+            border-color: var(--input-border);
+        }
+
+        /* Chat message list styling */
         #messagesList {
-            height: 65vh; /* Adjust to fit chat messages comfortably */
+            height: 50vh;
             overflow-y: auto;
             overflow-x: hidden;
+            background-color: var(--chat-bg);
+            color: var(--chat-color);
+            border-color: var(--chat-border) !important;
         }
 
-        /* Adaptive card adjustments */
+        /* Message styling */
+        .theme-messages .user-message {
+            background-color: var(--chat-user-bg);
+            color: var(--chat-user-color);
+        }
+
+        .theme-messages .bot-message {
+            background-color: var(--chat-bot-bg);
+            color: var(--chat-bot-color);
+        }
+
+        /* Adaptive card wrapper styling */
         .adaptive-card-wrapper {
             display: flex;
             flex-wrap: wrap;
-            max-width: 100%; /* Prevents overflow */
+            max-width: 100%;
             overflow-wrap: break-word;
             word-wrap: break-word;
             -ms-word-break: break-all;
             word-break: break-word;
             hyphens: auto;
+            background-color: var(--card-bg);
+            color: var(--chat-color);
+        }
+
+        /* Ensure adaptive cards respect the current theme */
+        .ac-adaptiveCard {
+            background-color: var(--card-bg) !important;
+            color: var(--chat-color) !important;
+        }
+
+        .ac-input, .ac-textInput, .ac-multilineInput, .ac-inputLabel {
+            background-color: var(--input-bg) !important;
+            color: var(--input-color) !important;
+            border-color: var(--input-border) !important;
+        }
+
+        .ac-pushButton {
+            background-color: var(--bs-primary) !important;
+            color: var(--bs-white) !important;
         }
     </style>
 }
@@ -77,8 +142,9 @@
 
 @section HeadScripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.9/signalr.min.js" defer></script>
-    <script src="https://unpkg.com/adaptivecards@2.11.0/dist/adaptivecards.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.12/marked.min.js" defer></script>
+    <script src="https://unpkg.com/adaptivecards@2.11.0/dist/adaptivecards.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.12/marked.min.js"></script>
+    <script src="https://unpkg.com/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
 }
 
 @section Scripts {
@@ -92,6 +158,23 @@
         let currentMessageContainer = null;
         let lastMessageUser = null;
         let activeMessageId = null;
+        
+        // Initialize Adaptive Cards Markdown processor
+        document.addEventListener("DOMContentLoaded", function () {
+            // Configure the markdown processor for Adaptive Cards
+            if (window.markdownit && window.AdaptiveCards) {
+                const markdownProcessor = new markdownit();
+                AdaptiveCards.AdaptiveCard.onProcessMarkdown = function(text, result) {
+                    result.outputHtml = markdownProcessor.render(text);
+                    result.didProcess = true;
+                };
+                console.log("Markdown processor initialized for Adaptive Cards");
+            } else {
+                console.warn("Required libraries for markdown processing not loaded");
+            }
+            
+            start();
+        });
 
         function generateConversationId() {
             return Math.random().toString(36).substring(2, 15);
@@ -111,6 +194,21 @@
                 connection.on("ReceiveAdaptiveCard", handleReceiveAdaptiveCard);
                 connection.on("ReceiveMessage", handleReceiveMessage);
                 await loadWorkflows();
+                
+                // Enable send button after connection
+                const sendButton = document.getElementById("sendButton");
+                const chatInput = document.getElementById("chatInput");
+                if (sendButton && chatInput) {
+                    sendButton.removeAttribute("disabled");
+                    
+                    // Set up event listeners for sending messages
+                    sendButton.addEventListener("click", sendChatMessage);
+                    chatInput.addEventListener("keypress", function(e) {
+                        if (e.key === "Enter") {
+                            sendChatMessage();
+                        }
+                    });
+                }
             } catch (err) {
                 retryCount++;
                 console.error("Connection failed: ", err);
@@ -121,6 +219,52 @@
                     document.getElementById("connectionStatus").textContent = "Unable to connect. Please try again later.";
                 }
             }
+        }
+
+        // Function to send chat messages
+        async function sendChatMessage() {
+            const chatInput = document.getElementById("chatInput");
+            const message = chatInput.value.trim();
+            
+            if (message && userName) {
+                try {
+                    await progressWorkflow(message);
+                    chatInput.value = "";
+                } catch (err) {
+                    console.error("Failed to send message:", err);
+                }
+            }
+        }
+
+        // Listen for theme changes and update styling
+        document.addEventListener('themeChanged', function(event) {
+            console.log("Theme changed to: " + event.detail.theme);
+            
+            // Force redraw of adaptive cards
+            const cardContainers = document.querySelectorAll(".adaptive-card-wrapper");
+            cardContainers.forEach(container => {
+                // Apply theme-specific styles to any existing adaptive cards
+                applyThemeToAdaptiveCard(container);
+            });
+        });
+        
+        // Apply theme to adaptive card
+        function applyThemeToAdaptiveCard(container) {
+            // Apply the current theme's CSS variables to the card
+            const isDarkTheme = document.body.classList.contains('theme-dark');
+            
+            const inputElements = container.querySelectorAll('.ac-input, .ac-textInput, .ac-multilineInput');
+            inputElements.forEach(input => {
+                input.style.backgroundColor = isDarkTheme ? '#2c3034' : '';
+                input.style.color = isDarkTheme ? '#f8f9fa' : '';
+                input.style.borderColor = isDarkTheme ? '#444' : '';
+            });
+            
+            const buttonElements = container.querySelectorAll('.ac-pushButton');
+            buttonElements.forEach(button => {
+                button.style.backgroundColor = '#0d6efd';
+                button.style.color = '#ffffff';
+            });
         }
 
         function showWorkflowSelection() {
@@ -179,13 +323,42 @@
 
             const adaptiveCard = new AdaptiveCards.AdaptiveCard();
             adaptiveCard.parse(JSON.parse(adaptiveCardJson));
+            
+            // Set host config for better theme compatibility
+            adaptiveCard.hostConfig = new AdaptiveCards.HostConfig({
+                containerStyles: {
+                    default: {
+                        backgroundColor: "var(--card-bg)",
+                        foregroundColors: {
+                            default: {
+                                default: "var(--chat-color)",
+                                subtle: "var(--chat-color)"
+                            }
+                        }
+                    }
+                },
+                supportsInteractivity: true,
+                actions: {
+                    buttonSpacing: 10,
+                    showCard: {
+                        actionMode: "inline",
+                        inlineTopMargin: 16
+                    },
+                    actionsOrientation: "horizontal",
+                    actionAlignment: "stretch"
+                }
+            });
+            
             const renderedCard = adaptiveCard.render();
-
+            
             const cardContainer = document.createElement("li");
-            cardContainer.classList.add("mb-3", "p-3", "bg-white", "shadow-sm", "rounded");
+            cardContainer.classList.add("mb-3", "p-3", "shadow-sm", "rounded", "adaptive-card-wrapper");
             cardContainer.appendChild(renderedCard);
             messagesList.appendChild(cardContainer);
             messagesList.scrollTop = messagesList.scrollHeight;
+            
+            // Apply theme-specific styles
+            applyThemeToAdaptiveCard(cardContainer);
 
             adaptiveCard.onExecuteAction = async function (action) {
                 if (action.data && (action.data.option || action.data.userResponse)) {
@@ -206,9 +379,9 @@
                 currentMessageContainer.classList.add("mb-2", "p-3", "rounded");
 
                 if (user === "PromptSpark") {
-                    currentMessageContainer.classList.add("bg-primary", "text-white");
+                    currentMessageContainer.classList.add("bot-message");
                 } else {
-                    currentMessageContainer.classList.add("bg-light", "text-dark");
+                    currentMessageContainer.classList.add("user-message");
                 }
 
                 currentMessageContainer.innerHTML = `<strong>${user}:</strong> <span class="message-content"></span>`;
@@ -236,9 +409,5 @@
                 console.error("SendMessage failed: ", err);
             }
         }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            start();
-        });
     </script>
 }

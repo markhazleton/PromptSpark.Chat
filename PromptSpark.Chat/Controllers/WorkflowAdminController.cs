@@ -5,8 +5,8 @@ namespace PromptSpark.Chat.Controllers;
 
 public class WorkflowAdminController : Controller
 {
-    private readonly IWorkflowService _workflowService;
-    public WorkflowAdminController(IWorkflowService workflowService)
+    private readonly WorkflowService _workflowService;
+    public WorkflowAdminController(WorkflowService workflowService)
     {
         _workflowService = workflowService;
     }

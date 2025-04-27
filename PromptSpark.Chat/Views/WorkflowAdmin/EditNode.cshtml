@@ -13,54 +13,63 @@
                                           });
 }
 
+<div class="container mt-4">
+    <h2>Edit Node - @Model.Id</h2>
 
-<h2>Edit Node - @Model.Id</h2>
-
-<form asp-action="EditNode" method="post">
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.FileName)
-    <div class="form-group">
-        <label asp-for="Question">Question</label>
-        <input asp-for="Question" class="form-control" />
-        <span asp-validation-for="Question" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="questionTypeDropdown" class="form-label">Select Question Type</label>
-        <select asp-for="QuestionType" asp-items="questionTypeOptions" class="form-select" id="questionTypeDropdown">
-            <option value="">Choose...</option> <!-- Placeholder option -->
-        </select>
-    </div>
-    <h3>Answers</h3>
-    <div id="answersContainer">
-        @for (int i = 0; i < Model.Answers.Count; i++)
-        {
-            <div class="answer-item" data-index="@i">
-                <div class="form-group">
-                    <label>Response</label>
-                    <input name="Answers[@i].Response" value="@Model.Answers[i].Response" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Next Node</label>
-                    <input name="Answers[@i].NextNode" value="@Model.Answers[i].NextNode" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>System Prompt</label>
-                    <input name="Answers[@i].SystemPrompt" value="@Model.Answers[i].SystemPrompt" class="form-control" />
-                </div>
-
-                <button type="button" class="btn btn-danger" onclick="removeAnswer(this)">Remove Answer</button>
-                <hr />
+    <form asp-action="EditNode" method="post">
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.FileName)
+        <div class="mb-3">
+            <label asp-for="Question" class="form-label">Question</label>
+            <input asp-for="Question" class="form-control" />
+            <span asp-validation-for="Question" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="questionTypeDropdown" class="form-label">Select Question Type</label>
+            <select asp-for="QuestionType" asp-items="questionTypeOptions" class="form-select" id="questionTypeDropdown">
+                <option value="">Choose...</option> <!-- Placeholder option -->
+            </select>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0">Answers</h3>
             </div>
-        }
-    </div>
+            <div class="card-body">
+                <div id="answersContainer">
+                    @for (int i = 0; i < Model.Answers.Count; i++)
+                    {
+                        <div class="answer-item card mb-3" data-index="@i">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Response</label>
+                                    <input name="Answers[@i].Response" value="@Model.Answers[i].Response" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Next Node</label>
+                                    <input name="Answers[@i].NextNode" value="@Model.Answers[i].NextNode" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">System Prompt</label>
+                                    <input name="Answers[@i].SystemPrompt" value="@Model.Answers[i].SystemPrompt" class="form-control" />
+                                </div>
 
-    <button type="button" class="btn btn-primary" onclick="addAnswer()">Add Answer</button>
+                                <button type="button" class="btn btn-danger" onclick="removeAnswer(this)">Remove Answer</button>
+                            </div>
+                        </div>
+                    }
+                </div>
 
-    <div class="form-group mt-3">
-        <button type="submit" class="btn btn-success">Save Node</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-    </div>
-</form>
+                <button type="button" class="btn btn-primary mb-3" onclick="addAnswer()">Add Answer</button>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-success">Save Node</button>
+            <a asp-action="Details" asp-route-fileName="@Model.FileName" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     <script>
@@ -70,17 +79,22 @@
             const answerIndex = answersContainer.children.length;
 
             const answerHtml = `
-                <div class="answer-item" data-index="${answerIndex}">
-                    <div class="form-group">
-                        <label>Response</label>
-                        <input name="Answers[${answerIndex}].Response" class="form-control" />
+                <div class="answer-item card mb-3" data-index="${answerIndex}">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Response</label>
+                            <input name="Answers[${answerIndex}].Response" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Next Node</label>
+                            <input name="Answers[${answerIndex}].NextNode" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">System Prompt</label>
+                            <input name="Answers[${answerIndex}].SystemPrompt" class="form-control" />
+                        </div>
+                        <button type="button" class="btn btn-danger" onclick="removeAnswer(this)">Remove Answer</button>
                     </div>
-                    <div class="form-group">
-                        <label>Next Node</label>
-                        <input name="Answers[${answerIndex}].NextNode" class="form-control" />
-                    </div>
-                    <button type="button" class="btn btn-danger" onclick="removeAnswer(this)">Remove Answer</button>
-                    <hr />
                 </div>
             `;
             answersContainer.insertAdjacentHTML("beforeend", answerHtml);
@@ -96,6 +110,7 @@
                 item.setAttribute("data-index", index);
                 item.querySelector("input[name$='Response']").setAttribute("name", `Answers[${index}].Response`);
                 item.querySelector("input[name$='NextNode']").setAttribute("name", `Answers[${index}].NextNode`);
+                item.querySelector("input[name$='SystemPrompt']").setAttribute("name", `Answers[${index}].SystemPrompt`);
             });
         }
     </script>

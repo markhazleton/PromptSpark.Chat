@@ -11,12 +11,39 @@
             max-width: 100px;
         }
 
-        /* Make the flowchart container scrollable */
+        /* Make the flowchart container scrollable with theme-compatible colors */
         #flowchart-container {
-            width: 100%; /* Adjust the width to your requirement */
-            height: 600px; /* Set a fixed height or use 100% for full viewport */
-            overflow: auto; /* Enable both horizontal and vertical scrollbars when needed */
-            border: 1px solid #ccc; /* Optional: Add border for better visibility */
+            width: 100%;
+            height: 600px;
+            overflow: auto; 
+            border: 1px solid var(--bs-border-color);
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+        }
+
+        /* Theme-specific mermaid diagram styling */
+        .theme-dark .mermaid svg text {
+            fill: #f8f9fa !important;
+        }
+
+        .theme-dark .mermaid svg .edgePath .path {
+            stroke: #adb5bd !important;
+        }
+
+        .theme-dark .mermaid svg .node rect, 
+        .theme-dark .mermaid svg .node polygon, 
+        .theme-dark .mermaid svg .node circle {
+            fill: #495057 !important;
+            stroke: #ced4da !important;
+        }
+
+        .theme-dark .mermaid svg .edgeLabel rect {
+            fill: #343a40 !important;
+        }
+
+        .theme-dark .mermaid svg .edgeLabel {
+            color: #f8f9fa !important;
+            background-color: #343a40 !important;
         }
     </style>
 }
@@ -53,9 +80,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="nodeModalLabel">Node Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p><strong>Node ID:</strong> <span id="modalNodeId"></span></p>
@@ -66,7 +91,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="manualCloseButton">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -168,11 +193,9 @@
                     answersList.appendChild(listItem);
                 });
 
-                document.getElementById("manualCloseButton").addEventListener("click", function() {
-                    $('#nodeModal').modal('hide');
-                });
-
-                $('#nodeModal').modal('show');
+                // Bootstrap 5 modal initialization
+                const nodeModal = new bootstrap.Modal(document.getElementById('nodeModal'));
+                nodeModal.show();
             }
 
             // Zoom In function
@@ -204,6 +227,11 @@
             function refreshDiagram() {
                 renderFlowchart();
             }
+
+            // Listen for theme changes to re-render diagram if needed
+            document.addEventListener('themeChanged', function(event) {
+                setTimeout(renderFlowchart, 300); // Slight delay to ensure theme is fully applied
+            });
 
             // Event Listeners for buttons
             document.getElementById("zoomInButton").addEventListener("click", zoomIn);

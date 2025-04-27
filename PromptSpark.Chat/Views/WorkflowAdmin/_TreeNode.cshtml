@@ -1,5 +1,5 @@
 ﻿@using PromptSpark.Chat.WorkflowDomain
-@model                         Node
+@model Node
 
 @{
     var workflow = ViewData["Workflow"] as Workflow;
@@ -8,8 +8,8 @@
     // If this node has already been visited, display a notice and prevent further recursion
     if (visitedNodes.Contains(Model.Id))
     {
-        <li class="list-group-item text-warning">
-            <strong>Loop detected:</strong> Node "@Model.Id" points back to an ancestor node.
+        <li class="list-group-item border-warning">
+            <div class="fw-bold text-warning">Loop detected:</div> Node "@Model.Id" points back to an ancestor node.
         </li>
         return;
     }
@@ -36,10 +36,10 @@
                     @foreach (var answer in Model.Answers)
                     {
                         <li class="list-group-item">
-                            <strong>Response:</strong> @answer.Response
+                            <div class="fw-bold">Response:</div> @answer.Response
                             @if (!string.IsNullOrEmpty(answer.NextNode))
                             {
-                                <span class="text-muted">→ Next Node: @answer.NextNode</span>
+                                <span class="opacity-75">→ Next Node: @answer.NextNode</span>
                             }
                         </li>
                     }

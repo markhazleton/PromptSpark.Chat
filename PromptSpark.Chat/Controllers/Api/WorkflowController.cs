@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PromptSpark.Chat.WorkflowDomain;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace PromptSpark.Chat.Controllers.Api;
 
@@ -12,18 +10,13 @@ namespace PromptSpark.Chat.Controllers.Api;
 [Route("api/[controller]")]
 public class WorkflowController : ControllerBase
 {
-    private readonly IWorkflowService _workflowService;
-    private readonly JsonSerializerOptions _jsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-    };
+    private readonly WorkflowService _workflowService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WorkflowController"/> class.
     /// </summary>
     /// <param name="workflowService">The workflow service for managing workflows.</param>
-    public WorkflowController(IWorkflowService workflowService)
+    public WorkflowController(WorkflowService workflowService)
     {
         _workflowService = workflowService;
     }

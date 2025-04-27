@@ -1,0 +1,1497 @@
+[
+  {
+    "Name": "AdaptiveCardService",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\ConversationDomain\\AdaptiveCardService.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "GetAdaptiveCardForNode",
+        "ReturnType": "string",
+        "Parameters": [
+          "Node currentNode"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetCardWithAnswers",
+        "ReturnType": "string",
+        "Parameters": [
+          "Node currentNode"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetCardWithText",
+        "ReturnType": "string",
+        "Parameters": [
+          "Node currentNode"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetMessageWriteCard",
+        "ReturnType": "string",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetCardWithAnswersAndText",
+        "ReturnType": "string",
+        "Parameters": [
+          "Node currentNode"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "ConversationService",
+    "Namespace": "Global",
+    "Comment": " Service for managing conversations, including chat history, workflow progression, and bot responses. ",
+    "InheritedClass": "ConcurrentDictionaryService\u003CConversation\u003E",
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\ConversationDomain\\ConversationService.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "AddChatEntry",
+        "ReturnType": "void",
+        "Parameters": [
+          "Conversation conversation",
+          "string user",
+          "string message",
+          "DateTime timestamp",
+          "string botResponse"
+        ],
+        "Comment": " Adds a chat entry to the conversation\u0027s chat history.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "BuildChatHistoryFromConversation",
+        "ReturnType": "ChatHistory",
+        "Parameters": [
+          "Conversation conversation"
+        ],
+        "Comment": " Builds a chat history object from a conversation.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "EngageChatAgent",
+        "ReturnType": "Task",
+        "Parameters": [
+          "ChatHistory chatHistory",
+          "string conversationId",
+          "IClientProxy clients",
+          "CancellationToken cancellationToken"
+        ],
+        "Comment": " Engages the chat agent with the provided chat history.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GenerateBotResponse",
+        "ReturnType": "Task\u003Cstring\u003E",
+        "Parameters": [
+          "ChatHistory chatHistory",
+          "CancellationToken cancellationToken"
+        ],
+        "Comment": " Generates a bot response based on the provided chat history.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetCurrentNode",
+        "ReturnType": "Node?",
+        "Parameters": [
+          "Conversation conversation"
+        ],
+        "Comment": " Gets the current node in the conversation\u0027s workflow.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "HandleWorkflowError",
+        "ReturnType": "void",
+        "Parameters": [
+          "Exception ex",
+          "Conversation conversation"
+        ],
+        "Comment": " Handles errors that occur during workflow progression.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Lookup",
+        "ReturnType": "Conversation",
+        "Parameters": [
+          "string conversationId"
+        ],
+        "Comment": " Looks up a conversation by its ID, or creates a new one if it does not exist.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "LoadWorkflow",
+        "ReturnType": "Workflow",
+        "Parameters": [
+          "string workflowName"
+        ],
+        "Comment": " Loads a specific workflow by name.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "ProcessSendMessage",
+        "ReturnType": "Task\u003C(MessageType messageType, object messageData)?\u003E",
+        "Parameters": [
+          "string message",
+          "string conversationId",
+          "Conversation conversation",
+          "CancellationToken ct"
+        ],
+        "Comment": " Processes a message sent by the user.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "ProcessUserResponse",
+        "ReturnType": "Task\u003C(MessageType messageType, object messageData)?\u003E",
+        "Parameters": [
+          "string conversationId",
+          "string userResponse",
+          "Conversation conversation",
+          "ISingleClientProxy caller",
+          "CancellationToken ct"
+        ],
+        "Comment": " Processes a response from the user.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "ProgressWorkflow",
+        "ReturnType": "Node?",
+        "Parameters": [
+          "Conversation conversation",
+          "string userResponse"
+        ],
+        "Comment": " Progresses the workflow based on the user\u0027s response.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "WorkflowService",
+    "Namespace": "Global",
+    "Comment": " Service class for managing workflows and their nodes. ",
+    "InheritedClass": "IWorkflowService",
+    "ImplementedInterfaces": [
+      "IWorkflowService"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\WorkflowService.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "LoadNode",
+        "ReturnType": "EditNodeViewModel",
+        "Parameters": [
+          "string nodeId",
+          "string fileName"
+        ],
+        "Comment": " Loads a node from a specified workflow file by its ID.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "LoadWorkflow",
+        "ReturnType": "Workflow",
+        "Parameters": [
+          "string fileName"
+        ],
+        "Comment": " Loads a workflow from a specified file.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "ListAvailableWorkflows",
+        "ReturnType": "List\u003Cstring\u003E",
+        "Parameters": [],
+        "Comment": " Lists all available workflow files in the configured directory.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "AddNode",
+        "ReturnType": "void",
+        "Parameters": [
+          "EditNodeViewModel newNode"
+        ],
+        "Comment": " Adds a new node to a workflow or updates an existing node if it already exists.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "UpdateNode",
+        "ReturnType": "void",
+        "Parameters": [
+          "EditNodeViewModel updatedNode"
+        ],
+        "Comment": " Updates an existing node in a workflow.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "DeleteNode",
+        "ReturnType": "void",
+        "Parameters": [
+          "EditNodeViewModel node"
+        ],
+        "Comment": " Deletes a node from a workflow and updates references to the deleted node.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "SaveWorkflow",
+        "ReturnType": "void",
+        "Parameters": [
+          "Workflow workflow"
+        ],
+        "Comment": " Saves the workflow to its respective file.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "UpdateReferencesAfterNodeDeletion",
+        "ReturnType": "void",
+        "Parameters": [
+          "Workflow workflow",
+          "string deletedNodeId"
+        ],
+        "Comment": " Updates references in the workflow after a node is deleted.   ",
+        "IsPublic": false,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "WorkflowController",
+    "Namespace": "Global",
+    "Comment": " API Controller for managing workflows and their nodes. ",
+    "InheritedClass": "ControllerBase",
+    "ImplementedInterfaces": [
+      "ControllerBase"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\Controllers\\Api\\WorkflowController.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": "api/workflow",
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "SetWorkflow",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string workflowFileName"
+        ],
+        "Comment": " Loads a workflow from the specified file.   ",
+        "IsPublic": true,
+        "Route": "POST api/workflow/set",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "GetNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string nodeId"
+        ],
+        "Comment": " Gets details of a specific workflow node by node ID.   ",
+        "IsPublic": true,
+        "Route": "GET api/workflow/node/{nodeId}",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "GetWorkflows",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": " Lists all available workflows.   ",
+        "IsPublic": true,
+        "Route": "GET api/workflow/workflows",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "AddNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "EditNodeViewModel newNode"
+        ],
+        "Comment": " Adds a new node to the workflow.   ",
+        "IsPublic": true,
+        "Route": "POST api/workflow/node/add",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "UpdateNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "EditNodeViewModel updatedNode"
+        ],
+        "Comment": " Updates an existing node in the workflow.   ",
+        "IsPublic": true,
+        "Route": "PUT api/workflow/node/update",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "DeleteNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string nodeId"
+        ],
+        "Comment": " Deletes a node from the workflow.   ",
+        "IsPublic": true,
+        "Route": "DELETE api/workflow/node/delete/{nodeId}",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "SaveWorkflow",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": " Saves the current workflow.   ",
+        "IsPublic": true,
+        "Route": "POST api/workflow/save",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "StartWorkflow",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": " Starts the workflow by redirecting to the start node.   ",
+        "IsPublic": true,
+        "Route": "GET api/workflow/start",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "SayThanks",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": " Returns a thank-you message for completing the workflow.   ",
+        "IsPublic": true,
+        "Route": "GET api/workflow/end",
+        "IsEndPoint": true
+      }
+    ],
+    "IsApiClass": true
+  },
+  {
+    "Name": "ApplicationStatus",
+    "Namespace": "Global",
+    "Comment": " ApplicationStatus ",
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\Application\\Diagnostics\\ApplicationStatus.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "BuildDate",
+        "Type": "DateTime",
+        "Comment": "   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "BuildVersion",
+        "Type": "BuildVersion",
+        "Comment": " BuildVersion   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "Features",
+        "Type": "Dictionary\u003Cstring, string\u003E",
+        "Comment": " Features   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "Messages",
+        "Type": "List\u003Cstring\u003E",
+        "Comment": " Messages   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "Region",
+        "Type": "string?",
+        "Comment": " Region   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "Status",
+        "Type": "ServiceStatus",
+        "Comment": " Status   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "Tests",
+        "Type": "Dictionary\u003Cstring, string\u003E",
+        "Comment": " Tests   ",
+        "IsPublic": true
+      }
+    ],
+    "Methods": [
+      {
+        "Name": "GetBuildDate",
+        "ReturnType": "DateTime",
+        "Parameters": [
+          "Assembly assembly"
+        ],
+        "Comment": null,
+        "IsPublic": false,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "ConcurrentDictionaryService",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\ConversationDomain\\ConcurrentDictionaryServiceT.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "Clear",
+        "ReturnType": "void",
+        "Parameters": [],
+        "Comment": " Clears all entries in the dictionary.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "ContainsKey",
+        "ReturnType": "bool",
+        "Parameters": [
+          "string key"
+        ],
+        "Comment": " Checks if the dictionary contains a specified key.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Delete",
+        "ReturnType": "bool",
+        "Parameters": [
+          "string key"
+        ],
+        "Comment": " Deletes a value by key.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetAllKeys",
+        "ReturnType": "IEnumerable\u003Cstring\u003E",
+        "Parameters": [],
+        "Comment": " Gets all keys currently stored in the dictionary.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetOrAdd",
+        "ReturnType": "T",
+        "Parameters": [
+          "string key",
+          "Func\u003Cstring, T\u003E valueFactory"
+        ],
+        "Comment": " Gets the value associated with the specified key, or adds a new value created by the provided factory if the key does not exist.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Lookup",
+        "ReturnType": "T?",
+        "Parameters": [
+          "string key"
+        ],
+        "Comment": " Looks up a value by key.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Save",
+        "ReturnType": "void",
+        "Parameters": [
+          "string key",
+          "T value"
+        ],
+        "Comment": " Saves or updates a value associated with a key in the dictionary.   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "BuildVersion",
+    "Namespace": "Global",
+    "Comment": " Build Version ",
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\Application\\Diagnostics\\BuildVersion.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "MajorVersion",
+        "Type": "int",
+        "Comment": " Major Version   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "MinorVersion",
+        "Type": "int",
+        "Comment": " Minor Version   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "Build",
+        "Type": "int",
+        "Comment": " Build   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "Revision",
+        "Type": "int",
+        "Comment": " Revision   ",
+        "IsPublic": true
+      }
+    ],
+    "Methods": [
+      {
+        "Name": "ToString",
+        "ReturnType": "string",
+        "Parameters": [],
+        "Comment": " Override the To String Function to Format Version   ",
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "ConversationsController",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": "ControllerBase",
+    "ImplementedInterfaces": [
+      "ControllerBase"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\Controllers\\Api\\ConversationController.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": "api/conversations",
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "GetConversation",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string conversationId"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": "GET api/conversations/{conversationId}",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "StartConversation",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": "POST api/conversations",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "SendMessage",
+        "ReturnType": "Task\u003CIActionResult\u003E",
+        "Parameters": [
+          "string conversationId",
+          "string message",
+          "CancellationToken cancellationToken"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": "POST api/conversations/{conversationId}/sendMessage",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "UserRespond",
+        "ReturnType": "Task\u003CIActionResult\u003E",
+        "Parameters": [
+          "string conversationId",
+          "string userResponse",
+          "CancellationToken cancellationToken"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": "POST api/conversations/{conversationId}/respond",
+        "IsEndPoint": true
+      },
+      {
+        "Name": "CreateHateoasResponse",
+        "ReturnType": "object",
+        "Parameters": [
+          "Conversation conversation",
+          "(MessageType messageType, object messageData)? actionData"
+        ],
+        "Comment": null,
+        "IsPublic": false,
+        "Route": "GET api/conversations",
+        "IsEndPoint": true
+      }
+    ],
+    "IsApiClass": true
+  },
+  {
+    "Name": "ChatService",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": "IChatService",
+    "ImplementedInterfaces": [
+      "IChatService"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\ConversationDomain\\ChatService.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "GenerateBotResponse",
+        "ReturnType": "Task\u003Cstring\u003E",
+        "Parameters": [
+          "ChatHistory chatHistory"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "EngageChatAgent",
+        "ReturnType": "Task",
+        "Parameters": [
+          "ChatHistory chatHistory",
+          "string conversationId",
+          "IClientProxy clients",
+          "CancellationToken cancellationToken"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "FlexibleStringConverter",
+    "Namespace": "Global",
+    "Comment": " Custom JSON converter to handle flexible deserialization of string properties that may appear as numbers in JSON. ",
+    "InheritedClass": "JsonConverter\u003Cstring\u003E",
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\FlexibleStringConverter.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "Read",
+        "ReturnType": "string",
+        "Parameters": [
+          "Utf8JsonReader reader",
+          "Type typeToConvert",
+          "JsonSerializerOptions options"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Write",
+        "ReturnType": "void",
+        "Parameters": [
+          "Utf8JsonWriter writer",
+          "string value",
+          "JsonSerializerOptions options"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "WorkflowOptions",
+    "Namespace": "Global",
+    "Comment": " Options class for configuring workflow paths. ",
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\WorkflowOptions.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "FilePath",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "DirectoryPath",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "ErrorViewModel",
+    "Namespace": "Global",
+    "Comment": " ",
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\Application\\ErrorViewModel.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "RequestId",
+        "Type": "string?",
+        "Comment": "   ",
+        "IsPublic": true
+      },
+      {
+        "Name": "ShowRequestId",
+        "Type": "bool",
+        "Comment": "   ",
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "WorkflowAdminController",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": "Controller",
+    "ImplementedInterfaces": [
+      "Controller"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\Controllers\\WorkflowAdminController.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "ExportJson",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string fileName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "AddNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string fileName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "AddNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "EditNodeViewModel newNode"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "DeleteNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string id",
+          "string fileName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Details",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string fileName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "EditNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string id",
+          "string fileName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "EditNode",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "EditNodeViewModel updatedNode"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Flowchart",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string fileName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetWorkflowData",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string fileName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Index",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Tree",
+        "ReturnType": "IActionResult",
+        "Parameters": [
+          "string fileName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Workflows",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "Conversation",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\ConversationDomain\\Conversation.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "ChatHistory",
+        "Type": "List\u003CChatEntry\u003E",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "ConversationId",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "CurrentNodeId",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "PromptName",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "DateTime",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "UserName",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "Workflow",
+        "Type": "Workflow",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "HomeController",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": "Controller",
+    "ImplementedInterfaces": [
+      "Controller"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\Controllers\\HomeController.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "Index",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Chat",
+        "ReturnType": "IActionResult",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Start",
+        "ReturnType": "Task\u003CIActionResult\u003E",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Step",
+        "ReturnType": "Task\u003CIActionResult\u003E",
+        "Parameters": [
+          "string nextLink"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "EditNodeViewModel",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": "Node",
+    "ImplementedInterfaces": [
+      "Node"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\EditNodeViewModel.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "FileName",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [
+      {
+        "Name": "UpdateNode",
+        "ReturnType": "Node",
+        "Parameters": [
+          "Node updateNode"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "GetNode",
+        "ReturnType": "Node",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "Workflow",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\Workflow.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "Nodes",
+        "Type": "List\u003CNode\u003E",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "StartNode",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "WorkflowId",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "WorkFlowName",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "WorkFlowFileName",
+        "Type": "string?",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [
+      {
+        "Name": "ToJson",
+        "ReturnType": "string",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": false,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "Node",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\Node.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "Answers",
+        "Type": "List\u003CAnswer\u003E",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "Id",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "QuestionType",
+        "Type": "QuestionType",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "Question",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "Answer",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\Answer.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "NextNode",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "Response",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "SystemPrompt",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "ChatEntry",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\ConversationDomain\\ChatEntry.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "BotResponse",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "Timestamp",
+        "Type": "DateTime",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "User",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "UserMessage",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "AnswerOption",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\AnswerOption.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "Link",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "Response",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "PromptSparkHub",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": "Hub",
+    "ImplementedInterfaces": [
+      "Hub"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\ConversationDomain\\PromptSparkHub.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [],
+    "Methods": [
+      {
+        "Name": "SendMessage",
+        "ReturnType": "Task",
+        "Parameters": [
+          "string conversationId",
+          "string message"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "SetUserName",
+        "ReturnType": "Task",
+        "Parameters": [
+          "string conversationId",
+          "string userName",
+          "string workflowName"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "OptionResponse",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\OptionResponse.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "Response",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "ProgressResult",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\ConversationDomain\\ProgressResult.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "IsError",
+        "Type": "bool",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "AdaptiveCardJson",
+        "Type": "string?",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "ErrorMessage",
+        "Type": "string?",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [
+      {
+        "Name": "Success",
+        "ReturnType": "ProgressResult",
+        "Parameters": [
+          "string adaptiveCardJson"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "Error",
+        "ReturnType": "ProgressResult",
+        "Parameters": [
+          "string errorMessage"
+        ],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      },
+      {
+        "Name": "NoAdaptiveCard",
+        "ReturnType": "ProgressResult",
+        "Parameters": [],
+        "Comment": null,
+        "IsPublic": true,
+        "Route": null,
+        "IsEndPoint": false
+      }
+    ],
+    "IsApiClass": false
+  },
+  {
+    "Name": "WorkflowNodeResponse",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": null,
+    "ImplementedInterfaces": [],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\WorkflowDomain\\WorkflowNodeResponse.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": null,
+    "Properties": [
+      {
+        "Name": "Answers",
+        "Type": "List\u003CAnswerOption\u003E",
+        "Comment": null,
+        "IsPublic": true
+      },
+      {
+        "Name": "Question",
+        "Type": "string",
+        "Comment": null,
+        "IsPublic": true
+      }
+    ],
+    "Methods": [],
+    "IsApiClass": false
+  },
+  {
+    "Name": "ApiBaseController",
+    "Namespace": "Global",
+    "Comment": null,
+    "InheritedClass": "ControllerBase",
+    "ImplementedInterfaces": [
+      "ControllerBase"
+    ],
+    "FilePath": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat\\Controllers\\Api\\ApiBaseController.cs",
+    "ProjectRoot": "C:\\GitHub\\MarkHazleton\\PromptSpark.Chat\\PromptSpark.Chat",
+    "RoutePrefix": "api/apibase",
+    "Properties": [],
+    "Methods": [],
+    "IsApiClass": true
+  }
+]

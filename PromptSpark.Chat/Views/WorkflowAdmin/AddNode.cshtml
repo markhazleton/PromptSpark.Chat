@@ -5,35 +5,57 @@
     ViewData["Title"] = "Add New Node";
 }
 
-<h2>Add New Node</h2>
+<div class="container mt-4">
+    <h2>Add New Node</h2>
 
-<form asp-action="AddNode" method="post">
-    <div class="form-group">
-        @Html.HiddenFor(m => m.FileName)
-        <label asp-for="Id">Node ID</label>
-        <input asp-for="Id" class="form-control" />
-        <small class="form-text text-muted">The Node ID should be unique.</small>
-        <span asp-validation-for="Id" class="text-danger"></span>
-    </div>
+    <form asp-action="AddNode" method="post">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0">Node Information</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    @Html.HiddenFor(m => m.FileName)
+                    <label asp-for="Id" class="form-label">Node ID</label>
+                    <input asp-for="Id" class="form-control" />
+                    <small class="form-text opacity-75">The Node ID should be unique.</small>
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Question">Question</label>
-        <input asp-for="Question" class="form-control" />
-        <span asp-validation-for="Question" class="text-danger"></span>
-    </div>
+                <div class="mb-3">
+                    <label asp-for="Question" class="form-label">Question</label>
+                    <input asp-for="Question" class="form-control" />
+                    <span asp-validation-for="Question" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="questionTypeDropdown" class="form-label">Question Type</label>
+                    <select asp-for="QuestionType" asp-items="Html.GetEnumSelectList<QuestionType>()" class="form-select" id="questionTypeDropdown">
+                        <option value="">Choose...</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
-    <h3>Answers</h3>
-    <div id="answersContainer">
-        <!-- Initial empty answer item; no answers in a new node by default -->
-    </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0">Answers</h3>
+            </div>
+            <div class="card-body">
+                <div id="answersContainer">
+                    <!-- Initial empty answer item; no answers in a new node by default -->
+                </div>
 
-    <button type="button" class="btn btn-primary" onclick="addAnswer()">Add Answer</button>
+                <button type="button" class="btn btn-primary mb-3" onclick="addAnswer()">Add Answer</button>
+            </div>
+        </div>
 
-    <div class="form-group mt-3">
-        <button type="submit" class="btn btn-success">Save Node</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-    </div>
-</form>
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-success">Save Node</button>
+            <a asp-action="Details" asp-route-fileName="@Model.FileName" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     <script>
@@ -43,17 +65,22 @@
             const answerIndex = answersContainer.children.length;
 
             const answerHtml = `
-                <div class="answer-item" data-index="${answerIndex}">
-                    <div class="form-group">
-                        <label>Response</label>
-                        <input name="Answers[${answerIndex}].Response" class="form-control" />
+                <div class="answer-item card mb-3" data-index="${answerIndex}">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Response</label>
+                            <input name="Answers[${answerIndex}].Response" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Next Node</label>
+                            <input name="Answers[${answerIndex}].NextNode" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">System Prompt</label>
+                            <input name="Answers[${answerIndex}].SystemPrompt" class="form-control" />
+                        </div>
+                        <button type="button" class="btn btn-danger" onclick="removeAnswer(this)">Remove Answer</button>
                     </div>
-                    <div class="form-group">
-                        <label>Next Node</label>
-                        <input name="Answers[${answerIndex}].NextNode" class="form-control" />
-                    </div>
-                    <button type="button" class="btn btn-danger" onclick="removeAnswer(this)">Remove Answer</button>
-                    <hr />
                 </div>
             `;
             answersContainer.insertAdjacentHTML("beforeend", answerHtml);
@@ -69,6 +96,7 @@
                 item.setAttribute("data-index", index);
                 item.querySelector("input[name$='Response']").setAttribute("name", `Answers[${index}].Response`);
                 item.querySelector("input[name$='NextNode']").setAttribute("name", `Answers[${index}].NextNode`);
+                item.querySelector("input[name$='SystemPrompt']").setAttribute("name", `Answers[${index}].SystemPrompt`);
             });
         }
     </script>

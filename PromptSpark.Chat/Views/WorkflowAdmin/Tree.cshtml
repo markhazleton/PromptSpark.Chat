@@ -6,26 +6,33 @@
     ViewData["VisitedNodes"] = new List<string>(); // Initialize visited nodes list
 }
 
-<h2>Workflow Tree View</h2>
+<div class="container mt-4">
+    <h2>Workflow Tree View</h2>
+    <p class="lead">Visual representation of workflow nodes and their relationships</p>
 
-<div class="tree">
-    @if (Model.Nodes != null && Model.Nodes.Count > 0)
-    {
-        var startNode = Model.Nodes.FirstOrDefault(n => n.Id == Model.StartNode);
-        if (startNode != null)
+    <div class="tree mt-4">
+        @if (Model.Nodes != null && Model.Nodes.Count > 0)
         {
-            <ul class="list-group">
-                <!-- Pass the startNode to _TreeNode without creating a new ViewDataDictionary -->
-                @Html.Partial("_TreeNode", startNode)
-            </ul>
+            var startNode = Model.Nodes.FirstOrDefault(n => n.Id == Model.StartNode);
+            if (startNode != null)
+            {
+                <ul class="list-group">
+                    <!-- Pass the startNode to _TreeNode without creating a new ViewDataDictionary -->
+                    @Html.Partial("_TreeNode", startNode)
+                </ul>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    Start node not found in workflow configuration.
+                </div>
+            }
         }
         else
         {
-            <p class="text-danger">Start node not found.</p>
+            <div class="alert alert-info" role="alert">
+                No nodes available in the workflow.
+            </div>
         }
-    }
-    else
-    {
-        <p>No nodes available in the workflow.</p>
-    }
+    </div>
 </div>

@@ -6,7 +6,7 @@ namespace PromptSpark.Chat.WorkflowDomain;
 /// <summary>
 /// Service class for managing workflows and their nodes.
 /// </summary>
-public class WorkflowService : IWorkflowService
+public class WorkflowService
 {
     private readonly JsonSerializerOptions _jsonOptions;
     private readonly WorkflowOptions _options;

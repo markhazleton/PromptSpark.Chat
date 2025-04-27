@@ -21,6 +21,9 @@ function minifyAndCopyJS() {
     // DataTables paths
     const dataTablesJSPath = path.join(__dirname, '../node_modules/datatables.net/js/dataTables.js');  // DataTables core
     const dataTablesBS5Path = path.join(__dirname, '../node_modules/datatables.net-bs5/js/dataTables.bootstrap5.js');  // DataTables Bootstrap 5 integration
+    
+    // Theme switcher path
+    const themeSwitcherPath = path.join(inputPath, 'theme-switcher.js');
 
     // Ensure the output directory exists
     if (!fs.existsSync(outputPath)) {
@@ -38,6 +41,7 @@ function minifyAndCopyJS() {
         'scalar.js': fs.readFileSync(scalarPath, 'utf8'),                            // Scalar
         'marked.js': fs.readFileSync(markedPath, 'utf8'),                            // Marked
         'webspark.js': fs.readFileSync(path.join(inputPath, 'webspark.js'), 'utf8'), // Custom script
+        'theme-switcher.js': fs.readFileSync(themeSwitcherPath, 'utf8'),             // Theme switcher
     };
 
     // Minify and combine JavaScript files

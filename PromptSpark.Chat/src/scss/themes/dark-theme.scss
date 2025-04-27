@@ -1,0 +1,153 @@
+// Dark theme for PromptSpark.Chat
+// Import core styles first
+@import '../core/variables';
+@import '../core/mixins';
+
+// Dark theme variable overrides
+$body-bg: #212529;
+$body-color: #f8f9fa;
+$primary: #0d6efd;
+$secondary: #6c757d;
+$light: #f8f9fa;
+$dark: #212529;
+
+// Background colors
+$bg-light: #343a40;
+$bg-dark: #212529;
+
+// Import Bootstrap with our custom variables
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+// Import additional component styles - only include what exists
+@import '../core/global';
+@import '../core/utilities/background';
+@import '../core/utilities/text';
+
+// Skip missing imports:
+// @import '../core/components/buttons';
+// @import '../core/components/cards';
+// @import '../core/components/navbar';
+
+// Define CSS variables for theming
+:root.theme-dark {
+  // Dark theme variables
+  --bs-body-bg: #{$body-bg};
+  --bs-body-color: #{$body-color};
+  
+  // Input & form colors
+  --input-bg: #{$dark};
+  --input-border: #{$gray-700};
+  --input-color: #{$light};
+  
+  // Card colors
+  --card-bg: #{$gray-800};
+  --card-border: #{$gray-700};
+  
+  // Code blocks
+  --code-bg: #{$gray-900};
+  --code-color: #{$gray-200};
+  
+  // Message bubbles for chat
+  --message-sent-bg: #{$primary};
+  --message-sent-color: #{$white};
+  --message-received-bg: #{$gray-700};
+  --message-received-color: #{$light};
+
+  // Extra styling for WorkflowAdmin views
+  --list-group-color: #{$light};
+  --list-group-bg: #{$gray-800};
+  --list-group-border-color: #{$gray-700};
+  
+  // Table styling
+  --table-color: #{$light};
+  --table-striped-color: #{$light};
+  --table-striped-bg: rgba(255, 255, 255, 0.05);
+  --table-border-color: #{$gray-700};
+  --table-accent-bg: #{$gray-700};
+  --table-head-bg: #{$gray-900};
+  --table-head-color: #{$white};
+}
+
+// Dark theme component overrides
+.theme-dark {
+  // Ensure card components have proper styling
+  .card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--bs-body-color);
+  }
+  
+  .card-header {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-bottom-color: var(--card-border);
+    color: var(--bs-body-color);
+  }
+  
+  // Ensure list groups have proper styling
+  .list-group-item {
+    background-color: var(--list-group-bg);
+    border-color: var(--list-group-border-color);
+    color: var(--list-group-color);
+  }
+  
+  // Ensure tables have proper styling
+  .table {
+    color: var(--table-color);
+    border-color: var(--table-border-color);
+  }
+
+  // Specific styling for table headers
+  .table thead th,
+  .table-dark th {
+    background-color: var(--table-head-bg) !important;
+    color: var(--table-head-color) !important;
+    border-color: #{$gray-700} !important;
+  }
+
+  // Explicitly style table headers for better visibility
+  thead.table-dark {
+    background-color: #{$gray-900} !important;
+    color: #{$white} !important;
+  }
+
+  .table-striped > tbody > tr:nth-of-type(odd) > * {
+    color: var(--table-striped-color);
+    background-color: var(--table-striped-bg);
+  }
+
+  .table-striped > tbody > tr:nth-of-type(even) > * {
+    color: var(--table-color);
+    background-color: var(--card-bg);
+  }
+
+  .table-hover > tbody > tr:hover > * {
+    color: #{$white};
+    background-color: rgba(255, 255, 255, 0.075);
+  }
+  
+  // Form controls
+  .form-control, .form-select {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--input-color);
+  }
+
+  // Links in tables should be more visible
+  .table a:not(.btn) {
+    color: #{$blue-300};
+    text-decoration: none;
+    
+    &:hover {
+      color: #{$blue-200};
+      text-decoration: underline;
+    }
+  }
+
+  // Improved text contrast for table cells
+  .table td, .table th {
+    color: #{$gray-200};
+  }
+
+  // Add a subtle transition effect when theme changes
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

@@ -1,0 +1,55 @@
+// Light theme for PromptSpark.Chat
+// Import core styles first
+@import '../core/variables';
+@import '../core/mixins';
+
+// Light theme variable overrides
+$body-bg: #ffffff;
+$body-color: #343a40;
+$primary: #0d6efd;
+$secondary: #6c757d;
+$light: #f8f9fa;
+$dark: #212529;
+
+// Background colors
+$bg-light: #f8f9fa;
+$bg-dark: #212529;
+
+// Import Bootstrap with our custom variables
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+// Import additional component styles - only include what exists
+@import '../core/global';
+@import '../core/utilities/background';
+@import '../core/utilities/text';
+
+// Skip missing imports:
+// @import '../core/components/buttons';
+// @import '../core/components/cards';
+// @import '../core/components/navbar';
+
+// Define CSS variables for theming
+:root {
+  // Light theme variables (default)
+  --bs-body-bg: #{$body-bg};
+  --bs-body-color: #{$body-color};
+  
+  // Input & form colors
+  --input-bg: #{$white};
+  --input-border: #{$gray-400};
+  --input-color: #{$body-color};
+  
+  // Card colors
+  --card-bg: #{$white};
+  --card-border: #{$gray-200};
+  
+  // Code blocks
+  --code-bg: #{$gray-100};
+  --code-color: #{$gray-800};
+  
+  // Message bubbles for chat
+  --message-sent-bg: #{$primary};
+  --message-sent-color: #{$white};
+  --message-received-bg: #{$light};
+  --message-received-color: #{$body-color};
+}
