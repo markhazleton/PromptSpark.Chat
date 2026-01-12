@@ -13,8 +13,8 @@ function minifyAndCopyJS() {
     const jqueryJSPath = path.join(__dirname, '../node_modules/jquery/dist/jquery.js');  // jQuery
     const featherJSPath = path.join(__dirname, '../node_modules/feather-icons/dist/feather.min.js');  // Feather Icons
     const signalRPath = path.join(__dirname, '../node_modules/@microsoft/signalr/dist/browser/signalr.js');  // SignalR
-    const scalarPath = path.join(__dirname, '../node_modules/scalar/lib/scalar/scalar.js');  // Scalar
-    const markedPath = path.join(__dirname, '../node_modules/marked/marked.min.js');  // Marked
+    const scalarPath = path.join(__dirname, '../node_modules/scalar/lib/cjs/scalar.js');  // Scalar
+    const markedPath = path.join(__dirname, '../node_modules/marked/lib/marked.umd.js');  // Marked
     const outputPath = path.join(__dirname, '../wwwroot/dist/js/');  // Output directory
     const outputFile = 'webspark.min.js';
 

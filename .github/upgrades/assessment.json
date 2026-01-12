@@ -1,0 +1,588 @@
+{
+  "settings": {
+    "components": {
+      "code": false,
+      "binaries": false
+    },
+    "targetId": "net10.0",
+    "targetDisplayName": ".NETCoreApp,Version=v10.0"
+  },
+  "analysisStartTime": "2026-01-12T05:17:49.7948162Z",
+  "analysisEndTime": "2026-01-12T05:17:51.5814776Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 1,
+      "issues": 4,
+      "incidents": 18,
+      "effort": 18
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 7,
+        "Optional": 0,
+        "Potential": 11,
+        "Information": 0
+      },
+      "category": {
+        "NuGet": 4,
+        "Project": 1,
+        "Api": 13
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+      "startingProject": true,
+      "issues": 4,
+      "storyPoints": 18,
+      "properties": {
+        "appName": "PromptSpark.Chat",
+        "projectKind": "AspNetCore",
+        "frameworks": [
+          "net9.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 459,
+        "numberOfCodeFiles": 48,
+        "linesTotal": 93168,
+        "linesOfCode": 4155,
+        "totalApiScanned": 6123,
+        "minLinesOfCodeToChange": 13,
+        "maxLinesOfCodeToChange": 13
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "a88adfb4-18f7-4d0b-8cb2-5247d0321004",
+          "ruleId": "NuGet.0002",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.OpenApi, 9.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.OpenApi, and replace with new package Microsoft.AspNetCore.OpenApi 10.0.1",
+              "protected": "Microsoft.AspNetCore.OpenApi, 9.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.OpenApi, and replace with new package Microsoft.AspNetCore.OpenApi 10.0.1"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+            "snippet": "Microsoft.AspNetCore.OpenApi, 9.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.OpenApi, and replace with new package Microsoft.AspNetCore.OpenApi 10.0.1",
+            "protectedSnippet": "Microsoft.AspNetCore.OpenApi, 9.0.4\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.OpenApi, and replace with new package Microsoft.AspNetCore.OpenApi 10.0.1",
+            "label": "Microsoft.AspNetCore.OpenApi 9.0.4",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.OpenApi",
+              "PackageVersion": "9.0.4",
+              "PackageNewVersion": "10.0.1",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "37b1b541-3676-495a-979e-c55cfd9ff2ef",
+          "ruleId": "NuGet.0002",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.SignalR, 1.2.0\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.SignalR, and replace with new package Microsoft.AspNetCore.SignalR.Client 10.0.1",
+              "protected": "Microsoft.AspNetCore.SignalR, 1.2.0\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.SignalR, and replace with new package Microsoft.AspNetCore.SignalR.Client 10.0.1"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+            "snippet": "Microsoft.AspNetCore.SignalR, 1.2.0\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.SignalR, and replace with new package Microsoft.AspNetCore.SignalR.Client 10.0.1",
+            "protectedSnippet": "Microsoft.AspNetCore.SignalR, 1.2.0\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.SignalR, and replace with new package Microsoft.AspNetCore.SignalR.Client 10.0.1",
+            "label": "Microsoft.AspNetCore.SignalR 1.2.0",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.SignalR",
+              "PackageVersion": "1.2.0",
+              "PackageNewVersion": null,
+              "PackageReplacements": "Replace with new package Microsoft.AspNetCore.SignalR.Client=10.0.1"
+            }
+          }
+        },
+        {
+          "incidentId": "67da011e-3796-4cae-a754-530ca32d04cb",
+          "ruleId": "NuGet.0002",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.Extensions.Options.ConfigurationExtensions, 9.0.4\n\nRecommendation:\n\nRemove Microsoft.Extensions.Options.ConfigurationExtensions, and replace with new package Microsoft.Extensions.Options.ConfigurationExtensions 10.0.1",
+              "protected": "Microsoft.Extensions.Options.ConfigurationExtensions, 9.0.4\n\nRecommendation:\n\nRemove Microsoft.Extensions.Options.ConfigurationExtensions, and replace with new package Microsoft.Extensions.Options.ConfigurationExtensions 10.0.1"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+            "snippet": "Microsoft.Extensions.Options.ConfigurationExtensions, 9.0.4\n\nRecommendation:\n\nRemove Microsoft.Extensions.Options.ConfigurationExtensions, and replace with new package Microsoft.Extensions.Options.ConfigurationExtensions 10.0.1",
+            "protectedSnippet": "Microsoft.Extensions.Options.ConfigurationExtensions, 9.0.4\n\nRecommendation:\n\nRemove Microsoft.Extensions.Options.ConfigurationExtensions, and replace with new package Microsoft.Extensions.Options.ConfigurationExtensions 10.0.1",
+            "label": "Microsoft.Extensions.Options.ConfigurationExtensions 9.0.4",
+            "properties": {
+              "PackageId": "Microsoft.Extensions.Options.ConfigurationExtensions",
+              "PackageVersion": "9.0.4",
+              "PackageNewVersion": "10.0.1",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "843b85a4-2228-41f8-9dac-57cf72ac3699",
+          "ruleId": "NuGet.0002",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "System.Text.Json, 9.0.4\n\nRecommendation:\n\nRemove System.Text.Json, and replace with new package System.Text.Json 10.0.1",
+              "protected": "System.Text.Json, 9.0.4\n\nRecommendation:\n\nRemove System.Text.Json, and replace with new package System.Text.Json 10.0.1"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+            "snippet": "System.Text.Json, 9.0.4\n\nRecommendation:\n\nRemove System.Text.Json, and replace with new package System.Text.Json 10.0.1",
+            "protectedSnippet": "System.Text.Json, 9.0.4\n\nRecommendation:\n\nRemove System.Text.Json, and replace with new package System.Text.Json 10.0.1",
+            "label": "System.Text.Json 9.0.4",
+            "properties": {
+              "PackageId": "System.Text.Json",
+              "PackageVersion": "9.0.4",
+              "PackageNewVersion": "10.0.1",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "d36c1ce3-e2c9-4864-a39d-136e8101fd42",
+          "ruleId": "Project.0002",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net9.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net9.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+            "snippet": "Current target framework: net9.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net9.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net9.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "6a6378f2-0fdb-4a7a-9b2d-7a83eb689849",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var jsonContent = await response.Content.ReadAsStringAsync();",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Controllers\\HomeController.cs",
+            "snippet": "var jsonContent = await response.Content.ReadAsStringAsync();",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 40,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "949e8aec-625b-4e11-8388-376a2589a448",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var jsonContent = await response.Content.ReadAsStringAsync();",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Controllers\\HomeController.cs",
+            "snippet": "var jsonContent = await response.Content.ReadAsStringAsync();",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 26,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "64fb13c3-7d76-402a-967c-a34aec02174d",
+          "ruleId": "Api.0001",
+          "description": "Breaking change: DynamicallyAccessedMembers annotation removed from trim-unsafe configuration APIs ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var modelId = configuration.GetValue\u003Cstring\u003E(\u0022MODEL_ID\u0022);",
+              "protected": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Application\\Diagnostics\\ConfigurationDiagnostics.cs",
+            "snippet": "var modelId = configuration.GetValue\u003Cstring\u003E(\u0022MODEL_ID\u0022);",
+            "protectedSnippet": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "label": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/extensions/10.0/dynamically-accessed-members-configuration.md",
+                "isCustom": false
+              }
+            ],
+            "line": 22,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "e1a4a6ff-2f27-4d74-aed8-1a8650874983",
+          "ruleId": "Api.0001",
+          "description": "Breaking change: DynamicallyAccessedMembers annotation removed from trim-unsafe configuration APIs ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var apiKey = configuration.GetValue\u003Cstring\u003E(\u0022OPENAI_API_KEY\u0022);",
+              "protected": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Application\\Diagnostics\\ConfigurationDiagnostics.cs",
+            "snippet": "var apiKey = configuration.GetValue\u003Cstring\u003E(\u0022OPENAI_API_KEY\u0022);",
+            "protectedSnippet": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "label": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/extensions/10.0/dynamically-accessed-members-configuration.md",
+                "isCustom": false
+              }
+            ],
+            "line": 21,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "f7af8c5b-ac84-4b18-bd55-93ccfc9e6737",
+          "ruleId": "Api.0001",
+          "description": "Breaking change: DynamicallyAccessedMembers annotation removed from trim-unsafe configuration APIs ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.Configure\u003CWorkflowOptions\u003E(builder.Configuration.GetSection(\u0022Workflow\u0022));",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "builder.Services.Configure\u003CWorkflowOptions\u003E(builder.Configuration.GetSection(\u0022Workflow\u0022));",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/extensions/10.0/dynamically-accessed-members-configuration.md",
+                "isCustom": false
+              }
+            ],
+            "line": 94,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "af72db61-f1c4-4345-8706-4c13135ba0b8",
+          "ruleId": "Api.0001",
+          "description": "Breaking change: DynamicallyAccessedMembers annotation removed from trim-unsafe configuration APIs ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "string modelId = builder.Configuration.GetValue\u003Cstring\u003E(\u0022MODEL_ID\u0022) ?? \u0022gpt-4o\u0022;",
+              "protected": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "string modelId = builder.Configuration.GetValue\u003Cstring\u003E(\u0022MODEL_ID\u0022) ?? \u0022gpt-4o\u0022;",
+            "protectedSnippet": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "label": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/extensions/10.0/dynamically-accessed-members-configuration.md",
+                "isCustom": false
+              }
+            ],
+            "line": 74,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "52394d14-2da7-4109-9a5f-e8f1f9873557",
+          "ruleId": "Api.0001",
+          "description": "Breaking change: DynamicallyAccessedMembers annotation removed from trim-unsafe configuration APIs ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "string apikey = builder.Configuration.GetValue\u003Cstring\u003E(\u0022OPENAI_API_KEY\u0022) ?? \u0022not found\u0022;",
+              "protected": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "string apikey = builder.Configuration.GetValue\u003Cstring\u003E(\u0022OPENAI_API_KEY\u0022) ?? \u0022not found\u0022;",
+            "protectedSnippet": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "label": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/extensions/10.0/dynamically-accessed-members-configuration.md",
+                "isCustom": false
+              }
+            ],
+            "line": 73,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "b2af93be-81ec-4b37-b2fd-5496e8365410",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "client.BaseAddress = uriBuilder.Uri;",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "client.BaseAddress = uriBuilder.Uri;",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 66,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "49c49756-753e-4a5a-a7c1-3240bc0969a2",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "client.BaseAddress = uriBuilder.Uri;",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "client.BaseAddress = uriBuilder.Uri;",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 66,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "fc35ed0f-fe10-4e67-b5e3-7dde919a933d",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var uri = new Uri(firstUrl);",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "var uri = new Uri(firstUrl);",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 55,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "d56a0cfc-5377-4863-9064-68e4c3edce74",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var uri = new Uri(firstUrl);",
+              "protected": "M:System.Uri.#ctor(System.String)"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "var uri = new Uri(firstUrl);",
+            "protectedSnippet": "M:System.Uri.#ctor(System.String)",
+            "label": "M:System.Uri.#ctor(System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 55,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "01d270e0-d34a-41c0-8bcc-42ab389ea48e",
+          "ruleId": "Api.0001",
+          "description": "Breaking change: DynamicallyAccessedMembers annotation removed from trim-unsafe configuration APIs ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var urls = builder.Configuration.GetValue\u003Cstring\u003E(\u0022ASPNETCORE_URLS\u0022);",
+              "protected": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "var urls = builder.Configuration.GetValue\u003Cstring\u003E(\u0022ASPNETCORE_URLS\u0022);",
+            "protectedSnippet": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "label": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/extensions/10.0/dynamically-accessed-members-configuration.md",
+                "isCustom": false
+              }
+            ],
+            "line": 33,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "040008f5-9972-42b6-a564-c4de22465d5d",
+          "ruleId": "Api.0003",
+          "description": "URI query redaction in IHttpClientFactory logs ",
+          "projectPath": "PromptSpark.Chat\\PromptSpark.Chat.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services.AddHttpClient(\u0022workflow\u0022, client =\u003E\r\n{\r\n    var urls = builder.Configuration.GetValue\u003Cstring\u003E(\u0022ASPNETCORE_URLS\u0022);\r\n    var defaultHost = \u0022localhost\u0022;\r\n    var defaultPort = 7105;\r\n\r\n    // Check if ASPNETCORE_URLS contains a full URL, and extract the host if so\r\n    var uriBuilder = new UriBuilder\r\n    {\r\n        Scheme = \u0022https\u0022,\r\n        Host = defaultHost,\r\n        Port = builder.Configuration.GetValue(\u0022ASPNETCORE_HTTPS_PORT\u0022, defaultPort),\r\n        Path = \u0022api/\u0022\r\n    };\r\n\r\n    if (!string.IsNullOrEmpty(urls))\r\n    {\r\n        if (!string.IsNullOrEmpty(urls))\r\n        {\r\n            try\r\n            {\r\n                var firstUrl = urls.Split(\u0027;\u0027).FirstOrDefault();\r\n                if (!string.IsNullOrEmpty(firstUrl))\r\n                {\r\n                    var uri = new Uri(firstUrl);\r\n                    uriBuilder.Host = uri.Host;\r\n                    uriBuilder.Port = uri.Port;\r\n                }\r\n            }\r\n            catch (UriFormatException ex)\r\n            {\r\n                Log.Error(ex, \u0022Error parsing ASPNETCORE_URLS\u0022);\r\n            }\r\n        }\r\n    }\r\n    client.BaseAddress = uriBuilder.Uri;\r\n});",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{System.Net.Http.HttpClient})"
+            },
+            "kind": "File",
+            "path": "PromptSpark.Chat\\Program.cs",
+            "snippet": "builder.Services.AddHttpClient(\u0022workflow\u0022, client =\u003E\r\n{\r\n    var urls = builder.Configuration.GetValue\u003Cstring\u003E(\u0022ASPNETCORE_URLS\u0022);\r\n    var defaultHost = \u0022localhost\u0022;\r\n    var defaultPort = 7105;\r\n\r\n    // Check if ASPNETCORE_URLS contains a full URL, and extract the host if so\r\n    var uriBuilder = new UriBuilder\r\n    {\r\n        Scheme = \u0022https\u0022,\r\n        Host = defaultHost,\r\n        Port = builder.Configuration.GetValue(\u0022ASPNETCORE_HTTPS_PORT\u0022, defaultPort),\r\n        Path = \u0022api/\u0022\r\n    };\r\n\r\n    if (!string.IsNullOrEmpty(urls))\r\n    {\r\n        if (!string.IsNullOrEmpty(urls))\r\n        {\r\n            try\r\n            {\r\n                var firstUrl = urls.Split(\u0027;\u0027).FirstOrDefault();\r\n                if (!string.IsNullOrEmpty(firstUrl))\r\n                {\r\n                    var uri = new Uri(firstUrl);\r\n                    uriBuilder.Host = uri.Host;\r\n                    uriBuilder.Port = uri.Port;\r\n                }\r\n            }\r\n            catch (UriFormatException ex)\r\n            {\r\n                Log.Error(ex, \u0022Error parsing ASPNETCORE_URLS\u0022);\r\n            }\r\n        }\r\n    }\r\n    client.BaseAddress = uriBuilder.Uri;\r\n});",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{System.Net.Http.HttpClient})",
+            "label": "M:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{System.Net.Http.HttpClient})",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/9.0/query-redaction-logs.md",
+                "isCustom": false
+              }
+            ],
+            "line": 31,
+            "column": 0
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "NuGet.0002": {
+      "id": "NuGet.0002",
+      "isFeature": false,
+      "description": "NuGet package upgrade is recommended for selected target framework.\n\nStandard .NET packages are recommended to have versions matching version of .NET that project targets.\n\nSome other packages also are known to work better for selected target frameworks.",
+      "label": "NuGet package upgrade is recommended",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262530",
+          "isCustom": false
+        }
+      ]
+    },
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0003": {
+      "id": "Api.0003",
+      "isFeature": false,
+      "description": "API has a behavioral change in selected .NET version: code and binaries may behave differently at runtime without needing recompilation, but the new behavior might be undesirable and require updates.",
+      "label": "Behavioral change in selected .NET version",
+      "severity": "Potential",
+      "effort": 1
+    },
+    "Api.0001": {
+      "id": "Api.0001",
+      "isFeature": false,
+      "description": "API is binary incompatible for selected .NET version: affects existing binaries, often requiring recompilation, because the API has changed in a way that prevents older binaries from loading or executing.",
+      "label": "Binary incompatible for selected .NET version",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    }
+  }
+}
