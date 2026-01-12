@@ -16,7 +16,7 @@ public class FlexibleStringConverter : JsonConverter<string>
         }
         else if (reader.TokenType == JsonTokenType.String)
         {
-            return reader.GetString();
+            return reader.GetString() ?? string.Empty;
         }
         throw new JsonException("Unexpected token type for Id property.");
     }

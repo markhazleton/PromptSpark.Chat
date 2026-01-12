@@ -5,5 +5,5 @@ namespace PromptSpark.Chat.WorkflowDomain;
 public class OptionResponse
 {
     [JsonPropertyName("response")]
-    public string Response { get; set; }
+    public required string Response { get; set; }
 }

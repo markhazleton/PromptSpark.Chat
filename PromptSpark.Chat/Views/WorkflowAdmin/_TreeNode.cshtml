@@ -54,7 +54,7 @@
                     {
                         <!-- Update ViewData["VisitedNodes"] with a new instance -->
                         ViewData["VisitedNodes"] = new List<string>(visitedNodes);
-                        @Html.Partial("_TreeNode", childNode)
+                        <partial name="_TreeNode" model="childNode" />
                     }
                 </ul>
             }

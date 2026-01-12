@@ -6,7 +6,8 @@ public class WorkflowNodeResponse
 {
 
     [JsonPropertyName("answers")]
-    public List<AnswerOption> Answers { get; set; }
+    public List<AnswerOption> Answers { get; set; } = new();
+    
     [JsonPropertyName("question")]
-    public string Question { get; set; }
+    public required string Question { get; set; }
 }

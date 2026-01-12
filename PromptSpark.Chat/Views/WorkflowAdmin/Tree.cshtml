@@ -17,8 +17,8 @@
             if (startNode != null)
             {
                 <ul class="list-group">
-                    <!-- Pass the startNode to _TreeNode without creating a new ViewDataDictionary -->
-                    @Html.Partial("_TreeNode", startNode)
+                    <!-- Pass the startNode to _TreeNode using partial tag helper -->
+                    <partial name="_TreeNode" model="startNode" />
                 </ul>
             }
             else

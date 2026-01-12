@@ -13,7 +13,7 @@ public sealed class BuildVersion
     /// <param name="assembly"></param>
     public BuildVersion(Assembly assembly)
     {
-        var oVer = assembly?.GetName().Version;
+        var oVer = assembly?.GetName().Version ?? new Version(0, 0, 0, 0);
         MajorVersion = oVer.Major;
         MinorVersion = oVer.Minor;
         Build = oVer.Build;

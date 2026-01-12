@@ -6,7 +6,8 @@ public class AnswerOption
 {
 
     [JsonPropertyName("link")]
-    public string Link { get; set; }
+    public required string Link { get; set; }
+    
     [JsonPropertyName("response")]
-    public string Response { get; set; }
+    public required string Response { get; set; }
 }

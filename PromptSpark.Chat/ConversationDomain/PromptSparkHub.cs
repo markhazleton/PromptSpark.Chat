@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.SignalR;
 namespace PromptSpark.Chat.ConversationDomain;
 
 public class PromptSparkHub(
-    IHubContext<PromptSparkHub> hubContext,
     ConversationService conversationService,
     ILogger<PromptSparkHub> logger) : Hub
 {

@@ -70,7 +70,7 @@ public class WorkflowController : ControllerBase
             Answers = node.Answers.Select(answer => new AnswerOption
             {
                 Response = answer.Response,
-                Link = Url.Action(nameof(GetNode), new { nodeId = answer.NextNode })
+                Link = Url.Action(nameof(GetNode), new { nodeId = answer.NextNode }) ?? string.Empty
             }).ToList()
         };
 

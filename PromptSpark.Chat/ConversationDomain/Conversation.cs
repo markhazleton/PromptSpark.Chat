@@ -5,8 +5,13 @@ public class Conversation
 {
     public Conversation()
     {
-
+        // Initialize required properties with default values for parameterless constructor
+        ConversationId = string.Empty;
+        CurrentNodeId = string.Empty;
+        UserName = "Anonymous";
+        Workflow = null!; // Will be set by deserialization or explicit initialization
     }
+    
     public Conversation(Workflow workflow, string conversationId, string? userName)
     {
         UserName = userName ?? "Anonymous";

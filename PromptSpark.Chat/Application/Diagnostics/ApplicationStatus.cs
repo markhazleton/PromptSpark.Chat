@@ -9,14 +9,16 @@ namespace PromptSpark.Chat.Application.Diagnostics;
 public sealed class ApplicationStatus
 {
     /// <summary>
-    /// 
+    /// Default constructor initializes with default values
     /// </summary>
     public ApplicationStatus()
     {
-
+        BuildVersion = new BuildVersion(Assembly.GetExecutingAssembly());
+        BuildDate = DateTime.MinValue;
     }
+    
     /// <summary>
-    /// 
+    /// Constructor with assembly parameter
     /// </summary>
     /// <param name="assembly"></param>
     public ApplicationStatus(Assembly assembly)

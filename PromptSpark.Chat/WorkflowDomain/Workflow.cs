@@ -7,15 +7,19 @@ public class Workflow
 {
 
     [JsonPropertyName("nodes")]
-    public List<Node> Nodes { get; set; }
+    public List<Node> Nodes { get; set; } = new();
+    
     [JsonPropertyName("startNode")]
     [JsonConverter(typeof(FlexibleStringConverter))]
-    public string StartNode { get; set; }
+    public required string StartNode { get; set; }
+    
     [JsonPropertyName("workflowId")]
     [JsonConverter(typeof(FlexibleStringConverter))]
-    public string WorkflowId { get; set; }
+    public required string WorkflowId { get; set; }
+    
     [JsonPropertyName("workflowName")]
     public string WorkFlowName { get; set; } = "workflow";
+    
     public string? WorkFlowFileName { get; internal set; }
 
     internal string ToJson()

@@ -270,7 +270,7 @@ public class ConversationService(WorkflowService workflowService, ChatService ch
             {
                 // Record the interaction
                 AddChatEntry(conversation, conversation.UserName ?? STR_ChatBotName, userResponse, DateTime.Now, currentNode.Question);
-                var matchingAnswer = currentNode?.Answers.FirstOrDefault(answer => 
+                var matchingAnswer = currentNode?.Answers?.FirstOrDefault(answer => 
                     answer.Response.Equals(userResponse, StringComparison.OrdinalIgnoreCase));
 
                 // Log if we found a matching answer
@@ -405,13 +405,13 @@ public class ConversationService(WorkflowService workflowService, ChatService ch
             logger.LogInformation("AdaptiveCard sent for conversation {ConversationId}, node {NodeId}", 
                 conversationId, conversation.CurrentNodeId);
             
-            return (MessageType.ReceiveAdaptiveCard, adaptiveCardJson);
+            return (MessageType.ReceiveAdaptiveCard, adaptiveCardJson ?? string.Empty);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error processing user response for conversation {ConversationId}: {ErrorMessage}", 
                 conversationId, ex.Message);
-                
+
             // Log more detailed information about the exception
             logger.LogError("Exception type: {ExceptionType}", ex.GetType().FullName);
             

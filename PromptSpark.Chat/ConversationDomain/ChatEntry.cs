@@ -2,8 +2,8 @@
 
 public class ChatEntry
 {
-    public string BotResponse { get; set; }
+    public required string BotResponse { get; set; }
     public DateTime Timestamp { get; set; }
-    public string User { get; set; }
-    public string UserMessage { get; set; }
+    public required string User { get; set; }
+    public required string UserMessage { get; set; }
 }

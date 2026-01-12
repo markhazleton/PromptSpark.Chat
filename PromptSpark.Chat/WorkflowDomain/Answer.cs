@@ -7,9 +7,11 @@ public class Answer
 
     [JsonPropertyName("nextNode")]
     [JsonConverter(typeof(FlexibleStringConverter))]
-    public string NextNode { get; set; }
+    public required string NextNode { get; set; }
+    
     [JsonPropertyName("response")]
-    public string Response { get; set; }
+    public required string Response { get; set; }
+    
     [JsonPropertyName("system")]
     public string SystemPrompt { get; set; } = "You are a chat agent";
 }
