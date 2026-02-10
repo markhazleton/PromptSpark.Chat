@@ -1,6 +1,6 @@
 /**
  * PromptSpark.Chat Theme Switcher
- * Handles switching between light and dark themes
+ * Uses Bootstrap 5.3 data-bs-theme attribute for native dark mode support
  */
 (function() {
     'use strict';
@@ -10,36 +10,26 @@
     const DEFAULT_THEME = 'light';
     const THEMES = {
         light: {
-            cssFile: 'promptspark-light.min.css',
-            iconClass: 'bi-moon-fill',
-            toggleTitle: 'Switch to Dark Mode'
+            icon: 'bi-moon-fill',
+            label: 'Switch to Dark Mode'
         },
         dark: {
-            cssFile: 'promptspark-dark.min.css',
-            iconClass: 'bi-sun-fill',
-            toggleTitle: 'Switch to Light Mode'
+            icon: 'bi-sun-fill',
+            label: 'Switch to Light Mode'
         }
     };
 
-    // DOM elements
-    let themeStylesheet;
     let themeToggle;
 
-    // Initialize the theme system
-    function initThemeSystem() {
-        // Create the theme stylesheet link element if it doesn't exist
-        if (!themeStylesheet) {
-            themeStylesheet = document.createElement('link');
-            themeStylesheet.rel = 'stylesheet';
-            themeStylesheet.id = 'theme-stylesheet';
-            document.head.appendChild(themeStylesheet);
-        }
+    // Apply theme immediately to prevent flash of wrong theme
+    const savedTheme = localStorage.getItem(THEME_KEY) || DEFAULT_THEME;
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
 
-        // Get the saved theme or use default
-        const savedTheme = localStorage.getItem(THEME_KEY) || DEFAULT_THEME;
+    function initThemeSystem() {
+        // Apply saved theme
         setTheme(savedTheme);
 
-        // Setup theme toggle button event listener
+        // Setup toggle button
         themeToggle = document.getElementById('theme-toggle');
         if (themeToggle) {
             themeToggle.addEventListener('click', toggleTheme);
@@ -47,58 +37,48 @@
         }
     }
 
-    // Set the theme
     function setTheme(themeName) {
-        // Validate theme name
         if (!THEMES[themeName]) {
-            console.error(`Theme '${themeName}' not found. Using default.`);
             themeName = DEFAULT_THEME;
         }
 
-        // Update the document body class
+        // Bootstrap 5.3 native dark mode
+        document.documentElement.setAttribute('data-bs-theme', themeName);
+
+        // Keep body class for any custom CSS that targets .theme-dark / .theme-light
         document.body.classList.remove('theme-light', 'theme-dark');
-        document.body.classList.add(`theme-${themeName}`);
+        document.body.classList.add('theme-' + themeName);
 
-        // Update the theme stylesheet
-        themeStylesheet.href = `/dist/css/${THEMES[themeName].cssFile}`;
-
-        // Save the theme preference
         localStorage.setItem(THEME_KEY, themeName);
 
-        // Update the toggle button if it exists
         if (themeToggle) {
             updateToggleButton(themeName);
         }
 
-        // Dispatch theme change event
-        document.dispatchEvent(new CustomEvent('themeChanged', { 
-            detail: { theme: themeName } 
+        // Dispatch event for components that need to react to theme changes
+        document.dispatchEvent(new CustomEvent('themeChanged', {
+            detail: { theme: themeName }
         }));
     }
 
-    // Toggle between light and dark themes
     function toggleTheme() {
-        const currentTheme = localStorage.getItem(THEME_KEY) || DEFAULT_THEME;
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
+        var currentTheme = localStorage.getItem(THEME_KEY) || DEFAULT_THEME;
+        setTheme(currentTheme === 'light' ? 'dark' : 'light');
     }
 
-    // Update the toggle button appearance
     function updateToggleButton(themeName) {
         if (!themeToggle) return;
-
-        // Clear existing classes
-        themeToggle.querySelector('i').className = '';
-        
-        // Set new icon and title
-        themeToggle.querySelector('i').className = `bi ${THEMES[themeName].iconClass}`;
-        themeToggle.title = THEMES[themeName === 'light' ? 'dark' : 'light'].toggleTitle;
+        var icon = themeToggle.querySelector('i');
+        if (icon) {
+            icon.className = 'bi ' + THEMES[themeName].icon;
+        }
+        themeToggle.title = THEMES[themeName].label;
+        themeToggle.setAttribute('aria-label', THEMES[themeName].label);
     }
 
-    // Initialize on DOMContentLoaded
     document.addEventListener('DOMContentLoaded', initThemeSystem);
 
-    // Expose the API to window for external use
+    // Public API
     window.ThemeSwitcher = {
         setTheme: setTheme,
         toggleTheme: toggleTheme

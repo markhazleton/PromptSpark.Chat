@@ -1,4 +1,7 @@
 // Light theme for PromptSpark.Chat
+// Uses Bootstrap 5.3 data-bs-theme="light" for native light mode support (default)
+// Only custom app-specific overrides are needed here
+
 // Import core styles first
 @import '../core/variables';
 @import '../core/mixins';
@@ -18,38 +21,27 @@ $bg-dark: #212529;
 // Import Bootstrap with our custom variables
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
-// Import additional component styles - only include what exists
+// Import additional component styles
 @import '../core/global';
 @import '../core/utilities/background';
 @import '../core/utilities/text';
 
-// Skip missing imports:
-// @import '../core/components/buttons';
-// @import '../core/components/cards';
-// @import '../core/components/navbar';
-
-// Define CSS variables for theming
-:root {
-  // Light theme variables (default)
-  --bs-body-bg: #{$body-bg};
-  --bs-body-color: #{$body-color};
-  
-  // Input & form colors
-  --input-bg: #{$white};
-  --input-border: #{$gray-400};
-  --input-color: #{$body-color};
-  
-  // Card colors
-  --card-bg: #{$white};
-  --card-border: #{$gray-200};
-  
-  // Code blocks
-  --code-bg: #{$gray-100};
-  --code-color: #{$gray-800};
-  
-  // Message bubbles for chat
+// App-specific CSS custom properties for light mode
+// Bootstrap 5.3 handles standard component colors via data-bs-theme="light"
+// These are only for custom app elements (chat bubbles, code blocks, etc.)
+[data-bs-theme="light"] {
+  // Chat message bubbles
   --message-sent-bg: #{$primary};
   --message-sent-color: #{$white};
   --message-received-bg: #{$light};
   --message-received-color: #{$body-color};
+
+  // Code blocks
+  --code-bg: #{$gray-100};
+  --code-color: #{$gray-800};
+
+  // Smooth transition when switching themes
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 }

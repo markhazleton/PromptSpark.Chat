@@ -6,7 +6,7 @@
     var status = new ApplicationStatus(Assembly.GetExecutingAssembly());
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 
 <head>
     <meta charset="utf-8">
@@ -22,7 +22,7 @@
     @RenderSection("HeadScripts", required: false)
 </head>
 
-<body id="page-top" class="theme-light">
+<body id="page-top">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
             <div class="container">
@@ -43,8 +43,8 @@
                             <a class="nav-link text-light" href="/scalar/v1">API Docs</a>
                         </li>
                         <li class="nav-item ms-auto">
-                            <button id="theme-toggle" class="btn btn-transparent-light rounded-circle"
-                                title="Switch to Dark Mode">
+                            <button id="theme-toggle" class="btn btn-outline-light rounded-circle"
+                                title="Switch to Dark Mode" aria-label="Toggle dark mode">
                                 <i class="bi bi-moon-fill"></i>
                             </button>
                         </li>

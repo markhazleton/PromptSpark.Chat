@@ -87,3 +87,29 @@
 @import './forms/checkboxes';
 @import './forms/form-control';
 @import './forms/input-group';
+
+// * * * * * * * * * * * * * * * * * * * *
+// * * App-specific theme variables    * *
+// * * Bootstrap 5.3 handles component * *
+// * * colors via data-bs-theme        * *
+// * * * * * * * * * * * * * * * * * * * *
+
+// Light mode custom properties (default)
+[data-bs-theme="light"] {
+  --message-sent-bg: #{$primary};
+  --message-sent-color: #{$white};
+  --message-received-bg: #{$light};
+  --message-received-color: #{$body-color};
+  --code-bg: #{$gray-100};
+  --code-color: #{$gray-800};
+}
+
+// Dark mode custom properties
+[data-bs-theme="dark"] {
+  --message-sent-bg: #{$primary};
+  --message-sent-color: #{$white};
+  --message-received-bg: #{$gray-700};
+  --message-received-color: #{$gray-100};
+  --code-bg: #{$gray-900};
+  --code-color: #{$gray-200};
+}

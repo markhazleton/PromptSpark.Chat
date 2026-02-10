@@ -10,27 +10,27 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <div class="card shadow-sm theme-card">
+            <div class="card shadow-sm">
                 <div class="card-body">
                     <div id="userForm" class="mb-4">
                         <label for="userInput" class="form-label">Enter your name to join the chat:</label>
-                        <input type="text" id="userInput" class="form-control theme-element" placeholder="Your name" aria-label="User name input" />
+                        <input type="text" id="userInput" class="form-control" placeholder="Your name" aria-label="User name input" />
                         <button class="btn btn-primary mt-2" onclick="showWorkflowSelection()">Next</button>
                     </div>
                     <div id="workflowForm" class="mb-4" style="display: none;">
                         <label for="workflowSelect" class="form-label">Select a workflow:</label>
-                        <select id="workflowSelect" class="form-select theme-element" aria-label="Workflow selection">
+                        <select id="workflowSelect" class="form-select" aria-label="Workflow selection">
                             <!-- Workflow options will be populated here by JavaScript -->
                         </select>
                         <button class="btn btn-primary mt-2" onclick="joinChat()">Join Chat</button>
                     </div>
                     <div id="chatWindow" style="display: none;">
                         <div id="connectionStatus" class="text-muted mb-2">Connecting...</div>
-                        <ul id="messagesList" class="list-unstyled mb-3 p-3 border rounded theme-messages overflow-auto" style="height: 50vh; max-height: 50vh;" aria-live="polite">
+                        <ul id="messagesList" class="list-unstyled mb-3 p-3 border rounded overflow-auto" style="height: 50vh; max-height: 50vh;" aria-live="polite">
                         </ul>
                         <div id="optionsContainer" class="d-flex flex-wrap gap-2 mb-3"></div>
                         <div class="input-group mt-3">
-                            <input type="text" id="chatInput" class="form-control theme-element" placeholder="Type your message..." aria-label="Chat message input" />
+                            <input type="text" id="chatInput" class="form-control" placeholder="Type your message..." aria-label="Chat message input" />
                             <button class="btn btn-primary" id="sendButton" disabled>Send</button>
                         </div>
                     </div>
@@ -42,68 +42,22 @@
 
 @section Styles {
     <style>
-        /* Base styles with CSS variables for theming */
-        :root {
-            --chat-bg: var(--bs-body-bg);
-            --chat-color: var(--bs-body-color);
-            --chat-border: var(--bs-border-color);
-            --chat-user-bg: var(--bs-light);
-            --chat-user-color: var(--bs-dark);
-            --chat-bot-bg: var(--bs-primary);
-            --chat-bot-color: var(--bs-white);
-            --card-bg: var(--bs-body-bg);
-            --input-bg: var(--bs-body-bg);
-            --input-color: var(--bs-body-color);
-            --input-border: var(--bs-border-color);
-        }
-
-        /* Dark theme overrides */
-        .theme-dark {
-            --chat-bg: var(--bs-dark);
-            --chat-color: var(--bs-light);
-            --chat-border: #444;
-            --chat-user-bg: #2c3034;
-            --chat-user-color: var(--bs-light);
-            --chat-bot-bg: #224f94;
-            --chat-bot-color: var(--bs-white);
-            --card-bg: #212529;
-            --input-bg: #2c3034;
-            --input-color: var(--bs-light);
-            --input-border: #444;
-        }
-
-        /* Card styling */
-        .theme-card {
-            background-color: var(--card-bg);
-            color: var(--chat-color);
-        }
-
-        /* Form elements styling */
-        .theme-element {
-            background-color: var(--input-bg);
-            color: var(--input-color);
-            border-color: var(--input-border);
-        }
-
         /* Chat message list styling */
         #messagesList {
             height: 50vh;
             overflow-y: auto;
             overflow-x: hidden;
-            background-color: var(--chat-bg);
-            color: var(--chat-color);
-            border-color: var(--chat-border) !important;
         }
 
-        /* Message styling */
-        .theme-messages .user-message {
-            background-color: var(--chat-user-bg);
-            color: var(--chat-user-color);
+        /* Message styling - uses Bootstrap color variables that auto-adapt with data-bs-theme */
+        .user-message {
+            background-color: var(--bs-tertiary-bg);
+            color: var(--bs-body-color);
         }
 
-        .theme-messages .bot-message {
-            background-color: var(--chat-bot-bg);
-            color: var(--chat-bot-color);
+        .bot-message {
+            background-color: var(--bs-primary);
+            color: #fff;
         }
 
         /* Adaptive card wrapper styling */
@@ -112,29 +66,27 @@
             flex-wrap: wrap;
             max-width: 100%;
             overflow-wrap: break-word;
-            word-wrap: break-word;
-            -ms-word-break: break-all;
             word-break: break-word;
             hyphens: auto;
-            background-color: var(--card-bg);
-            color: var(--chat-color);
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
         }
 
         /* Ensure adaptive cards respect the current theme */
         .ac-adaptiveCard {
-            background-color: var(--card-bg) !important;
-            color: var(--chat-color) !important;
+            background-color: var(--bs-body-bg) !important;
+            color: var(--bs-body-color) !important;
         }
 
         .ac-input, .ac-textInput, .ac-multilineInput, .ac-inputLabel {
-            background-color: var(--input-bg) !important;
-            color: var(--input-color) !important;
-            border-color: var(--input-border) !important;
+            background-color: var(--bs-body-bg) !important;
+            color: var(--bs-body-color) !important;
+            border-color: var(--bs-border-color) !important;
         }
 
         .ac-pushButton {
             background-color: var(--bs-primary) !important;
-            color: var(--bs-white) !important;
+            color: #fff !important;
         }
     </style>
 }
@@ -250,20 +202,16 @@
         
         // Apply theme to adaptive card
         function applyThemeToAdaptiveCard(container) {
-            // Apply the current theme's CSS variables to the card
-            const isDarkTheme = document.body.classList.contains('theme-dark');
-            
+            // With Bootstrap 5.3 data-bs-theme, CSS variables auto-adapt.
+            // We only need to force-apply inline styles for Adaptive Cards
+            // since they render outside normal CSS cascade.
+            const isDarkTheme = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+
             const inputElements = container.querySelectorAll('.ac-input, .ac-textInput, .ac-multilineInput');
             inputElements.forEach(input => {
-                input.style.backgroundColor = isDarkTheme ? '#2c3034' : '';
-                input.style.color = isDarkTheme ? '#f8f9fa' : '';
-                input.style.borderColor = isDarkTheme ? '#444' : '';
-            });
-            
-            const buttonElements = container.querySelectorAll('.ac-pushButton');
-            buttonElements.forEach(button => {
-                button.style.backgroundColor = '#0d6efd';
-                button.style.color = '#ffffff';
+                input.style.backgroundColor = isDarkTheme ? '#2b3035' : '';
+                input.style.color = isDarkTheme ? '#dee2e6' : '';
+                input.style.borderColor = isDarkTheme ? '#495057' : '';
             });
         }
 

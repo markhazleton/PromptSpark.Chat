@@ -4,9 +4,9 @@
     var currentYear = DateTime.Now.Year.ToString();
     var status = new ApplicationStatus(Assembly.GetExecutingAssembly());
 }
-<footer class="container-fluid mt-auto border-top footer text-light d-print-none">
+<footer class="container-fluid mt-auto border-top py-3 d-print-none bg-dark text-light">
     <div class="container-fluid">
-        <div class="row py-3">
+        <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-12">
                 Version: @status.BuildVersion?.ToString()
             </div>
@@ -16,7 +16,7 @@
             <div class="col-lg-3 col-md-3 col-sm-12 text-end">
                 Last Built: @status.BuildDate.ToLocalTime().ToLongDateString()
                 <br>
-                <a href="https://markhazleton.com" title="Mark Hazleton, Solutions Architect, Lifelong Learner, not sidetracked by sizzle" target="_blank">Mark Hazleton</a>
+                <a href="https://markhazleton.com" class="text-light" title="Mark Hazleton, Solutions Architect, Lifelong Learner, not sidetracked by sizzle" target="_blank">Mark Hazleton</a>
             </div>
         </div>
     </div>
