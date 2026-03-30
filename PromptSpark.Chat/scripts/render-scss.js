@@ -13,11 +13,12 @@ const destPath = upath.resolve(upath.dirname(__filename), '../wwwroot/dist/css/w
 
 module.exports = function renderSCSS() {
     
-    const results = sass.renderSync({
-        data: entryPoint,
-        includePaths: [
+    const results = sass.compileString(entryPoint, {
+        loadPaths: [
             upath.resolve(upath.dirname(__filename), '../node_modules')
         ],
+        // Silence deprecation warnings from Bootstrap and other dependencies
+        silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'if-function', 'legacy-js-api']
     });
 
     const destPathDirname = upath.dirname(destPath);

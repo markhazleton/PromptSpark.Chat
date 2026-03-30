@@ -52,12 +52,14 @@ function compileTheme(themePath, outputName, themeName) {
         // Compile SCSS
         const copyright = createCopyrightBlock(themeName);
         
-        // Use renderSync for direct compilation
+        // Use compile() with silenced deprecations for Bootstrap
         const results = sass.compile(fullThemePath, {
             loadPaths: [
                 upath.resolve(upath.dirname(__filename), '../node_modules'),
                 upath.resolve(upath.dirname(__filename), '../src/scss')
-            ]
+            ],
+            // Silence deprecation warnings from Bootstrap and other dependencies
+            silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'if-function', 'legacy-js-api']
         });
 
         // Process with PostCSS synchronously to ensure file is written

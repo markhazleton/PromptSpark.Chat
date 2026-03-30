@@ -3,19 +3,19 @@
 // Adds a background gradient with a $primary color fallback
 .bg-gradient-primary-to-secondary {
     background-color: $primary !important;
-    background-image: linear-gradient(135deg, $primary 0%, fade-out($secondary, 0.2) 100%) !important;
+    background-image: linear-gradient(135deg, $primary 0%, rgba($secondary, 0.8) 100%) !important;
 }
 
 // Semi transparent background utilities
 
 .bg-transparent-light {
-    color: fade-out($white, 0.5) !important;
-    background-color: fade-out($black, 0.9) !important;
+    color: rgba($white, 0.5) !important;
+    background-color: rgba($black, 0.1) !important;
 }
 
 .bg-transparent-dark {
-    color: fade-out($gray-900, 0.5) !important;
-    background-color: fade-out($gray-900, 0.2) !important;
+    color: rgba($gray-900, 0.5) !important;
+    background-color: rgba($gray-900, 0.8) !important;
 }
 
 // Grayscale background utilities
@@ -56,7 +56,7 @@
 }
 
 .bg-white-25 {
-    background-color: fade-out($white, 0.75) !important;
+    background-color: rgba($white, 0.25) !important;
 }
 
 // Page header style when using a background image

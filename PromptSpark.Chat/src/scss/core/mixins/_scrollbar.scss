@@ -10,7 +10,7 @@
         border-width: 0.2rem;
         border-style: solid;
         background-clip: padding-box;
-        background-color: fade-out($gray-900, 0.8);
+        background-color: rgba($gray-900, 0.2);
         border-color: transparent;
     }
 

@@ -7,12 +7,12 @@ $zindex-topnav: 1039;
 
 // -- Base Sidenav Dark
 $sidenav-dark-bg: $gray-900;
-$sidenav-dark-color: fade-out($white, 0.5);
-$sidenav-dark-heading-color: fade-out($white, 0.75);
-$sidenav-dark-link-color: fade-out($white, 0.5);
+$sidenav-dark-color: rgba($white, 0.5);
+$sidenav-dark-heading-color: rgba($white, 0.25);
+$sidenav-dark-link-color: rgba($white, 0.5);
 $sidenav-dark-link-active-color: $white;
-$sidenav-dark-icon-color: fade-out($white, 0.75);
-$sidenav-dark-footer-bg: fade-out($black, 0.75);
+$sidenav-dark-icon-color: rgba($white, 0.25);
+$sidenav-dark-footer-bg: rgba($black, 0.25);
 $sidenav-dark-bg: lighten($gray-900, 3%);
 
 // -- Base Sidenav Light
@@ -22,11 +22,11 @@ $sidenav-light-heading-color: $gray-500;
 $sidenav-light-link-color: $sidenav-light-color;
 $sidenav-light-link-active-color: $primary;
 $sidenav-light-icon-color: $gray-500;
-$sidenav-light-footer-bg: fade-out($gray-900, 0.95);
+$sidenav-light-footer-bg: rgba($gray-900, 0.05);
 
 // -- Sidenav Border Offset
 $sidenav-nested-border-offest: 0.5625rem;
 
 // Color variables for the topnav
-$topnav-dark-toggler-color: fade-out($white, 0.5);
+$topnav-dark-toggler-color: rgba($white, 0.5);
 $topnav-light-toggler-color: $gray-900;

@@ -153,35 +153,35 @@
         // border
         transparent,
         // color
-        fade-out($gray-900, 0.5),
+        rgba($gray-900, 0.5),
 
         // hover background
-        fade-out($gray-900, 0.9),
+        rgba($gray-900, 0.1),
         // hover border
         transparent,
         // hover color
-        fade-out($gray-900, 0.5),
+        rgba($gray-900, 0.5),
 
         // active background
-        fade-out($gray-900, 0.8),
+        rgba($gray-900, 0.2),
         // active border
         transparent,
         // active color
-        fade-out($gray-900, 0.5),
+        rgba($gray-900, 0.5),
 
         // disabled background
-        fade-out($gray-900, 0.9),
+        rgba($gray-900, 0.1),
         // disabled border
         transparent,
         // disabled color
-        fade-out($gray-900, 0.65),
+        rgba($gray-900, 0.35),
 
     );
 
-    color: fade-out($gray-900, 0.5) !important;
+    color: rgba($gray-900, 0.5) !important;
 
     &:focus {
-        box-shadow: 0 0 0 $btn-focus-width fade-out($gray-900, 0.75) !important;
+        box-shadow: 0 0 0 $btn-focus-width rgba($gray-900, 0.25) !important;
     }
 }
 
@@ -193,31 +193,31 @@
         // border
         transparent,
         // color
-        fade-out($white, 0.5),
+        rgba($white, 0.5),
 
         // hover background
-        fade-out($white, 0.9),
+        rgba($white, 0.1),
         // hover border
         transparent,
         // hover color
-        fade-out($white, 0.5),
+        rgba($white, 0.5),
 
         // active background
-        fade-out($white, 0.8),
+        rgba($white, 0.2),
         // active border
         transparent,
         // active color
-        fade-out($white, 0.5),
+        rgba($white, 0.5),
 
         // disabled background
-        fade-out($white, 0.9),
+        rgba($white, 0.1),
         // disabled border
         transparent,
         // disabled color
-        fade-out($white, 0.65),
+        rgba($white, 0.35),
     );
 
-    color: fade-out($white, 0.5) !important;
+    color: rgba($white, 0.5) !important;
 
     &:focus {
         box-shadow: 0 0 0 $btn-focus-width fade-out($white, 0.75) !important;
