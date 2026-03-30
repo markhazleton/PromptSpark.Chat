@@ -49,9 +49,6 @@ function compileTheme(themePath, outputName, themeName) {
             sh.mkdir('-p', destPathDirname);
         }
 
-        // Read the SCSS content
-        const scssContent = fs.readFileSync(fullThemePath, 'utf8');
-        
         // Compile SCSS
         const copyright = createCopyrightBlock(themeName);
         

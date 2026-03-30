@@ -8,6 +8,7 @@
         "build:scripts": "node scripts/build-scripts.js",
         "build:scss": "node scripts/build-scss.js",
         "clean": "node scripts/clean.js",
+        "lint": "eslint scripts/**/*.js src/**/*.js --fix",
         "start": "npm run build && node scripts/start.js",
         "start:debug": "npm run build && node scripts/start-debug.js",
         "PromptSpark": "node src/PromptSpark/npm_build.js"
@@ -69,6 +70,8 @@
         "concurrently": "9.2.1",
         "cssnano": "^7.1.2",
         "dotenv": "17.2.4",
+        "eslint": "^10.1.0",
+        "globals": "^17.4.0",
         "ncp": "^2.0.0",
         "p-limit": "7.3.0",
         "postcss": "8.5.6",
