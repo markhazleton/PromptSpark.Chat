@@ -1,8 +1,18 @@
 # PromptSpark Chat Workflow
 
+**Live Site**: [https://chat.makeboldspark.com/](https://chat.makeboldspark.com/)
+
 **A real-time, conversational workflow application built with ASP.NET Core, SignalR, and Adaptive Cards. It demonstrates how to guide users through multi-step processes, present interactive UI elements, and optionally integrate AI-driven responses—all while providing flexible workflow logic, simple concurrency management, and minimal overhead.**
 
+## About
+
+PromptSpark.Chat is a real-time, conversational workflow application hosted at [https://chat.makeboldspark.com/](https://chat.makeboldspark.com/). It demonstrates how to guide users through multi-step processes using Adaptive Cards and SignalR, with optional AI integration for handling open-ended questions beyond the structured workflow.
+
+> Built by [Mark Hazleton](https://markhazleton.com) — Mark Hazleton, Solutions Architect
+> PromptSpark.Chat is part of the [Make Bold Spark](https://makeboldspark.com) portfolio of technical demonstrations.
+
 ## Table of Contents
+- [About](#about)
 - [Overview](#overview)
 - [Features](#features)
 - [Technologies](#technologies)
