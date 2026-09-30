@@ -1,96 +1,70 @@
-﻿@{
-    ViewData["Title"] = "PromptSpark.Chat";
+@{
+    ViewData["Title"] = "Start a conversation";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="mt-2 mb-4">Chat</h1>
+<section class="spark-chat-page">
+    <div class="spark-container">
+        <div class="spark-chat-heading">
+            <div><span class="spark-eyebrow">The conversation</span><h1 class="spark-display">Let's find your <span style="color: var(--spark-rust)">next step.</span></h1></div>
+            <p>A guided path is ready when you are. Questions are welcome at every turn.</p>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div id="userForm" class="mb-4">
-                        <label for="userInput" class="form-label">Enter your name to join the chat:</label>
-                        <input type="text" id="userInput" class="form-control" placeholder="Your name" aria-label="User name input" />
-                        <button class="btn btn-primary mt-2" onclick="showWorkflowSelection()">Next</button>
+        <div class="spark-chat-shell">
+            <aside class="spark-chat-rail" aria-label="How this conversation works">
+                <div class="spark-rail-label">A note before you begin</div>
+                <h2>Two ways to move.</h2>
+                <p>Use the guided choices to progress, or ask the assistant a question while you think.</p>
+                <div class="spark-rail-rule"></div>
+                <div class="spark-rail-item"><b>01</b><span>Choose a workflow to set the direction.</span></div>
+                <div class="spark-rail-item"><b>02</b><span>Select an option on the card to move to the next step.</span></div>
+                <div class="spark-rail-item"><b>03</b><span>Type an open question for help. Your current step stays in place.</span></div>
+                <p class="spark-rail-note">Conversation state is kept in server memory and may not survive a restart.</p>
+            </aside>
+            <div class="spark-chat-panel">
+                <div class="spark-chat-panel-top"><strong>PromptSpark.Chat</strong><span>Guided conversation / Open questions</span></div>
+                <div class="spark-chat-panel-body">
+                    <div id="userForm" class="spark-form-step">
+                        <span class="spark-form-count">Getting started / 01</span>
+                        <h2>What should we call you?</h2>
+                        <p>First, give us a name for this conversation. Then you'll choose the path you'd like to follow.</p>
+                        <label for="userInput" class="form-label">Your name</label>
+                        <input type="text" id="userInput" class="form-control" placeholder="Enter your name" aria-label="User name input" autocomplete="name" maxlength="50" />
+                        <button type="button" class="spark-button" onclick="showWorkflowSelection()">Continue <span aria-hidden="true">↗</span></button>
                     </div>
-                    <div id="workflowForm" class="mb-4" style="display: none;">
-                        <label for="workflowSelect" class="form-label">Select a workflow:</label>
+                    <div id="workflowForm" class="spark-form-step" style="display: none;">
+                        <span class="spark-form-count">Getting started / 02</span>
+                        <h2>Pick your path.</h2>
+                        <p>Choose a workflow to guide the next steps. You can still ask a free-form question whenever you need more context.</p>
+                        <label for="workflowSelect" class="form-label">Available workflows</label>
                         <select id="workflowSelect" class="form-select" aria-label="Workflow selection">
-                            <!-- Workflow options will be populated here by JavaScript -->
+                            <option value="" disabled selected>Loading workflows...</option>
                         </select>
-                        <button class="btn btn-primary mt-2" onclick="joinChat()">Join Chat</button>
+                        <button type="button" id="retryWorkflows" class="spark-retry-link" style="display: none;" onclick="loadWorkflows()">Retry loading workflows</button>
+                        <button type="button" class="spark-button" onclick="joinChat()">Begin conversation <span aria-hidden="true">↗</span></button>
                     </div>
                     <div id="chatWindow" style="display: none;">
-                        <div id="connectionStatus" class="text-muted mb-2">Connecting...</div>
-                        <ul id="messagesList" class="list-unstyled mb-3 p-3 border rounded overflow-auto" style="height: 50vh; max-height: 50vh;" aria-live="polite">
-                        </ul>
-                        <div id="optionsContainer" class="d-flex flex-wrap gap-2 mb-3"></div>
-                        <div class="input-group mt-3">
-                            <input type="text" id="chatInput" class="form-control" placeholder="Type your message..." aria-label="Chat message input" />
-                            <button class="btn btn-primary" id="sendButton" disabled>Send</button>
+                        <div class="spark-conversation-hint"><b>How to use this</b><span>Choose an option in a guided card to advance. Type a question below for an AI answer without leaving the current step.</span></div>
+                        <div id="connectionStatus" role="status" aria-live="polite">Connecting...</div>
+                        <ul id="messagesList" aria-label="Conversation messages" aria-live="polite" aria-relevant="additions text"></ul>
+                        <div id="optionsContainer"></div>
+                        <label for="chatInput" class="spark-composer-label">Ask a question at this step</label>
+                        <div class="spark-composer">
+                            <input type="text" id="chatInput" class="form-control" placeholder="What would you like to know?" aria-label="Chat message input" />
+                            <button type="button" class="spark-button" id="sendButton" disabled>Send question <span aria-hidden="true">↗</span></button>
                         </div>
+                        <div class="spark-composer-note">To continue the guided workflow, use a choice on the current card.</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 @section Styles {
     <style>
-        /* Chat message list styling */
-        #messagesList {
-            height: 50vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        /* Message styling - uses Bootstrap color variables that auto-adapt with data-bs-theme */
-        .user-message {
-            background-color: var(--bs-tertiary-bg);
-            color: var(--bs-body-color);
-        }
-
-        .bot-message {
-            background-color: var(--bs-primary);
-            color: #fff;
-        }
-
-        /* Adaptive card wrapper styling */
-        .adaptive-card-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 100%;
-            overflow-wrap: break-word;
-            word-break: break-word;
-            hyphens: auto;
-            background-color: var(--bs-body-bg);
-            color: var(--bs-body-color);
-        }
-
-        /* Ensure adaptive cards respect the current theme */
-        .ac-adaptiveCard {
-            background-color: var(--bs-body-bg) !important;
-            color: var(--bs-body-color) !important;
-        }
-
-        .ac-input, .ac-textInput, .ac-multilineInput, .ac-inputLabel {
-            background-color: var(--bs-body-bg) !important;
-            color: var(--bs-body-color) !important;
-            border-color: var(--bs-border-color) !important;
-        }
-
-        .ac-pushButton {
-            background-color: var(--bs-primary) !important;
-            color: #fff !important;
-        }
+        /* Adaptive Cards are injected after page load; keep their content inside the conversation column. */
+        #messagesList .adaptive-card-wrapper > * { max-width: 100%; }
     </style>
 }
-
 
 @section HeadScripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.9/signalr.min.js" defer></script>
@@ -113,6 +87,12 @@
         
         // Initialize Adaptive Cards Markdown processor
         document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("userInput").addEventListener("keydown", function (event) {
+                if (event.key === "Enter") showWorkflowSelection();
+            });
+            document.getElementById("workflowSelect").addEventListener("keydown", function (event) {
+                if (event.key === "Enter") joinChat();
+            });
             // Configure the markdown processor for Adaptive Cards
             if (window.markdownit && window.AdaptiveCards) {
                 const markdownProcessor = new markdownit();
@@ -209,9 +189,9 @@
 
             const inputElements = container.querySelectorAll('.ac-input, .ac-textInput, .ac-multilineInput');
             inputElements.forEach(input => {
-                input.style.backgroundColor = isDarkTheme ? '#2b3035' : '';
-                input.style.color = isDarkTheme ? '#dee2e6' : '';
-                input.style.borderColor = isDarkTheme ? '#495057' : '';
+                input.style.backgroundColor = isDarkTheme ? '#202521' : '';
+                input.style.color = isDarkTheme ? '#f7f4ef' : '';
+                input.style.borderColor = isDarkTheme ? '#434640' : '';
             });
         }
 
@@ -226,19 +206,32 @@
         }
 
         async function loadWorkflows() {
+            const workflowSelect = document.getElementById("workflowSelect");
+            const retryButton = document.getElementById("retryWorkflows");
+            workflowSelect.replaceChildren(new Option("Loading workflows...", ""));
+            workflowSelect.disabled = true;
+            retryButton.style.display = "none";
             try {
                 const response = await fetch('@Url.Action("workflows", "WorkflowAdmin")');
+                if (!response.ok) throw new Error("Workflow request failed");
                 const workflows = await response.json();
-                const workflowSelect = document.getElementById("workflowSelect");
-
+                workflowSelect.replaceChildren(new Option("Choose a workflow", ""));
                 workflows.forEach(workflow => {
                     const option = document.createElement("option");
                     option.value = workflow;
                     option.textContent = workflow;
                     workflowSelect.appendChild(option);
                 });
+                if (!workflows.length) {
+                    workflowSelect.replaceChildren(new Option("No workflows available", ""));
+                    retryButton.style.display = "inline-block";
+                } else {
+                    workflowSelect.disabled = false;
+                }
             } catch (err) {
                 console.error("Failed to load workflows:", err);
+                workflowSelect.replaceChildren(new Option("Unable to load workflows", ""));
+                retryButton.style.display = "inline-block";
             }
         }
 
@@ -301,6 +294,7 @@
             
             const cardContainer = document.createElement("li");
             cardContainer.classList.add("mb-3", "p-3", "shadow-sm", "rounded", "adaptive-card-wrapper");
+            cardContainer.setAttribute("aria-label", "Guided workflow step");
             cardContainer.appendChild(renderedCard);
             messagesList.appendChild(cardContainer);
             messagesList.scrollTop = messagesList.scrollHeight;
@@ -323,7 +317,7 @@
             const messagesList = document.getElementById("messagesList");
 
             if (!currentMessageContainer || lastMessageUser !== user || activeMessageId !== messageId) {
-                currentMessageContainer = document.createElement("div");
+                currentMessageContainer = document.createElement("li");
                 currentMessageContainer.classList.add("mb-2", "p-3", "rounded");
 
                 if (user === "PromptSpark") {

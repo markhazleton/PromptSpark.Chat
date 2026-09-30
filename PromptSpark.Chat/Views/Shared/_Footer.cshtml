@@ -1,30 +1,37 @@
-﻿@using PromptSpark.Chat.Application.Diagnostics;
+@using PromptSpark.Chat.Application.Diagnostics;
 @using System.Reflection;
 @{
     var currentYear = DateTime.Now.Year.ToString();
     var status = new ApplicationStatus(Assembly.GetExecutingAssembly());
 }
-<footer class="container-fluid mt-auto border-top py-3 d-print-none bg-dark text-light">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12">
-                Version: @status.BuildVersion?.ToString()
+<footer class="spark-footer d-print-none">
+    <div class="spark-container">
+        <div class="spark-footer-grid">
+            <div>
+                <a class="spark-brand" href="/" aria-label="PromptSpark.Chat home"><span class="spark-brand-mark" aria-hidden="true"></span><span class="spark-brand-word">PromptSpark<span>.Chat</span></span></a>
+                <p>Guided when you need a path. Open when you need an answer.</p>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 text-center">
-                &copy; 2020-@currentYear PromptSpark.Chat
+            <div>
+                <div class="spark-footer-label">Explore</div>
+                <nav class="spark-footer-links" aria-label="Footer navigation">
+                    <a href="/Home/chat">Start a conversation</a>
+                    <a href="/#how-it-works">How it works</a>
+                    <a href="/#documentation">Documentation</a>
+                </nav>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 text-end">
-                Last Built: @status.BuildDate.ToLocalTime().ToLongDateString()
-                <br>
-                <a href="https://markhazleton.com" class="text-light" title="Mark Hazleton, Solutions Architect, Lifelong Learner, not sidetracked by sizzle" target="_blank">Mark Hazleton</a>
+            <div>
+                <div class="spark-footer-label">For builders</div>
+                <nav class="spark-footer-links" aria-label="Developer links">
+                    <a href="/WorkflowAdmin">Workflow Admin</a>
+                    <a href="/scalar/v1">API Docs</a>
+                    <a href="https://markhazleton.com" target="_blank" rel="noopener noreferrer">Mark Hazleton ↗</a>
+                    <a href="https://makeboldsolutions.com" target="_blank" rel="noopener noreferrer">Make Bold Solutions ↗</a>
+                </nav>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 text-center small">
-                <a href="https://chat.makeboldspark.com/" class="text-light">PromptSpark.Chat</a> —
-                built by <a href="https://markhazleton.com" class="text-light">Mark Hazleton</a> ·
-                <a href="https://makeboldsolutions.com" class="text-light">Make Bold Solutions</a>
-            </div>
+        <div class="spark-footer-bottom">
+            <span>&copy; 2020-@currentYear PromptSpark.Chat · <a href="https://chat.makeboldspark.com/">chat.makeboldspark.com</a></span>
+            <span>Version @status.BuildVersion?.ToString() · Built @status.BuildDate.ToLocalTime().ToLongDateString()</span>
         </div>
     </div>
 </footer>
