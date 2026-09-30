@@ -1,4 +1,4 @@
-﻿@using PromptSpark.Chat.Application.Diagnostics;
+@using PromptSpark.Chat.Application.Diagnostics;
 @using System.Reflection;
 
 @{
@@ -11,11 +11,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="PromptSpark.Chat - Mark Hazleton">
+    <meta name="description" content="PromptSpark.Chat pairs guided workflow choices with room to ask an AI assistant questions along the way.">
     <meta name="author" content="Mark Hazleton">
     <title>@ViewData["Title"] - PromptSpark.Chat</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/dist/css/webspark.min.css" />
+    <link rel="stylesheet" href="/css/spark-refresh.css" />
     @RenderSection("Styles", required: false)
 
     <script src="/dist/js/webspark.min.js" crossorigin="anonymous"></script>
@@ -24,26 +28,36 @@
 
 <body id="page-top">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
+        <div class="spark-topline">
+            <span>A path forward, with room to think aloud.</span>
+            <a href="/Home/chat">Open the conversation &nbsp;↗</a>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" aria-label="Main navigation">
             <div class="container">
-                <a class="navbar-brand" href="/">PromptSpark.Chat</a>
+                <a class="navbar-brand spark-brand" href="/" aria-label="PromptSpark.Chat home"><span class="spark-brand-mark" aria-hidden="true"></span><span class="spark-brand-word">PromptSpark<span>.Chat</span></span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="/Home/chat">Chat</a>
+                            <a class="nav-link" href="/#how-it-works">How it works</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="/WorkflowAdmin">Workflow Admin</a>
+                            <a class="nav-link" href="/#documentation">Documentation</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="/scalar/v1">API Docs</a>
+                            <a class="nav-link" href="/WorkflowAdmin">Workflow Admin</a>
                         </li>
-                        <li class="nav-item ms-auto">
-                            <button id="theme-toggle" class="btn btn-outline-light rounded-circle"
+                        <li class="nav-item">
+                            <a class="nav-link" href="/scalar/v1">API Docs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link spark-nav-cta" href="/Home/chat">Open Chat <span aria-hidden="true">↗</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <button id="theme-toggle" class="btn"
                                 title="Switch to Dark Mode" aria-label="Toggle dark mode">
                                 <i class="bi bi-moon-fill"></i>
                             </button>
@@ -53,10 +67,8 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="pb-3">
-        <section class="container-fluid mt-3 mb-3 pt-3 pb-3">
-            @RenderBody()
-        </section>
+    <main role="main" class="spark-main">
+        @RenderBody()
     </main>
 
     @await Html.PartialAsync("_Footer")
